@@ -1,0 +1,2262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math Tutoring by Deni - Bilangan dan Operasi Hitung Dasar</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#2563eb;--primary-dark:#1e40af;--secondary:#f59e0b;--success:#10b981;--danger:#ef4444;--bg:#f8fafc;--card:#fff;--text:#1e293b;--muted:#64748b;--border:#e2e8f0}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.tr{font-style:italic;font-size:.82em;color:var(--muted);display:block;margin-top:2px}
+header{background:var(--primary);color:#fff;padding:10px 20px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.12);position:sticky;top:0;z-index:100;flex-wrap:wrap;gap:8px}
+header .brand{font-weight:700;font-size:1.05em}
+header .topic{font-size:.88em;text-align:center;flex:1}
+header .topic .tr{color:rgba(255,255,255,.85)}
+header button{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:8px 14px;border-radius:6px;cursor:pointer;font-size:.85em;white-space:nowrap}
+header button:hover{background:rgba(255,255,255,.25)}
+.main-container{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 52px)}
+.sidebar{background:var(--card);border-right:1px solid var(--border);padding:14px;overflow-y:auto;position:sticky;top:52px;height:calc(100vh - 52px)}
+.sidebar h3{font-size:.72em;color:var(--muted);text-transform:uppercase;margin-bottom:8px;letter-spacing:1px}
+.nav-link{display:block;padding:8px 10px;border-radius:6px;cursor:pointer;margin-bottom:3px;font-size:.84em;border:1px solid transparent;transition:all .15s}
+.nav-link:hover{background:#eff6ff}
+.nav-link.active{background:var(--primary);color:#fff;pointer-events:none;cursor:default}
+.nav-link .nl-title{display:block;font-weight:600}
+.nav-link .time{font-size:.76em;color:var(--muted);display:block;margin-top:2px}
+.nav-link.active .time,.nav-link.active .tr{color:rgba(255,255,255,.85)}
+.nav-link.disabled{opacity:.45;cursor:not-allowed;font-size:.8em;padding:6px 10px}
+.content-area{padding:22px 28px;overflow-y:auto;max-width:1100px;margin:0 auto;width:100%}
+.page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:2px solid var(--border);flex-wrap:wrap;gap:8px}
+.page-header h2{color:var(--primary-dark);font-size:1.1em}
+.page-header .badge{background:var(--secondary);color:#fff;padding:4px 10px;border-radius:20px;font-size:.76em;font-weight:600}
+.card{background:var(--card);border-radius:10px;padding:22px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:16px;border:1px solid var(--border)}
+.card.explain{border-left:4px solid var(--primary)}
+.card.task{border-left:4px solid var(--secondary)}
+.card h3{color:var(--primary-dark);margin-bottom:12px;font-size:1.1em}
+.math-block{background:#f1f5f9;padding:12px 14px;border-radius:8px;margin:12px 0;overflow-x:auto}
+.example-box{background:#fef3c7;border-left:4px solid var(--secondary);padding:12px 16px;margin:12px 0;border-radius:6px}
+.example-box h4{color:#92400e;margin-bottom:6px;font-size:.95em}
+.tip-box{background:#dbeafe;border-left:4px solid var(--primary);padding:10px 14px;margin:10px 0;border-radius:6px}
+.tip-box h4{color:#1e40af;margin-bottom:4px;font-size:.9em}
+.illustration{text-align:center;margin:14px 0;padding:14px;background:#f1f5f9;border-radius:8px}
+.q-text{font-size:1em;margin-bottom:12px;line-height:1.7}
+.options{display:flex;flex-direction:column;gap:8px}
+.option{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:2px solid var(--border);border-radius:8px;cursor:pointer;background:#fff;transition:all .15s}
+.option:hover{border-color:var(--primary);background:#eff6ff}
+.option.selected{border-color:var(--primary);background:#dbeafe}
+.option.correct{border-color:var(--success);background:#d1fae5}
+.option.incorrect{border-color:var(--danger);background:#fee2e2}
+.option .marker{min-width:18px;width:18px;height:18px;border:2px solid var(--muted);border-radius:50%;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:.7em;color:#fff}
+.option.selected .marker{background:var(--primary);border-color:var(--primary)}
+.option.correct .marker{background:var(--success);border-color:var(--success)}
+.option.incorrect .marker{background:var(--danger);border-color:var(--danger)}
+.option.checkbox .marker{border-radius:3px}
+.option .opt-text{flex:1}
+.fill-input{padding:8px 12px;border:2px solid var(--border);border-radius:6px;font-size:1em;width:100%;margin:8px 0;font-family:inherit}
+.fill-input:focus{border-color:var(--primary);outline:none}
+.btn-submit{background:var(--primary);color:#fff;border:none;padding:9px 20px;border-radius:6px;cursor:pointer;font-size:.88em;font-weight:600;margin-top:12px}
+.btn-submit:hover{background:var(--primary-dark)}
+.feedback{margin-top:12px;padding:14px;border-radius:8px;display:none}
+.feedback.show{display:block}
+.feedback.correct{background:#d1fae5;border:1px solid var(--success)}
+.feedback.incorrect{background:#fee2e2;border:1px solid var(--danger)}
+.feedback h4{margin-bottom:6px}
+.feedback ol,.feedback ul{margin:6px 0;padding-left:22px}
+.feedback li{margin:4px 0}
+
+.card ol, .card ul { padding-left: 26px; margin: 10px 0; }
+.card li { margin: 5px 0; }
+.example-box ol, .example-box ul { padding-left: 22px; margin: 8px 0; }
+.tip-box ol, .tip-box ul { padding-left: 22px; margin: 8px 0; }
+.math-block ol, .math-block ul { padding-left: 22px; margin: 8px 0; }
+
+.pagination{display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding-top:14px;border-top:1px solid var(--border)}
+.pagination button{background:var(--primary);color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:.84em}
+.pagination button:disabled{background:#cbd5e1;cursor:not-allowed}
+.pagination .indicator{font-size:.82em;color:var(--muted);text-align:center;flex:1;padding:0 10px}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center}
+.modal.active{display:flex}
+.modal-content{background:#fff;padding:22px;border-radius:12px;max-width:460px;width:90%}
+.modal-content h3{color:var(--primary-dark);margin-bottom:12px}
+.modal-content ul{list-style:none;padding-left:0}
+.modal-content li{padding:10px 0;border-bottom:1px solid var(--border)}
+.modal-content li:last-child{border-bottom:none}
+.modal-close{background:var(--primary);color:#fff;border:none;padding:8px 18px;border-radius:6px;cursor:pointer;margin-top:12px}
+.sort-list{display:flex;flex-direction:column;gap:6px}
+.sort-item{padding:10px 12px;border:2px solid var(--border);border-radius:8px;background:#fff;cursor:pointer;display:flex;align-items:center;gap:10px;transition:all .15s}
+.sort-item:hover{border-color:var(--primary)}
+.sort-item.selected{border-color:var(--primary);background:#dbeafe}
+.sort-item .pos{background:var(--primary);color:#fff;min-width:24px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8em;flex-shrink:0}
+.sort-item .sort-text{flex:1}
+.pair-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pair-col h4{font-size:.85em;color:var(--muted);margin-bottom:6px;text-transform:uppercase}
+.pair-col{display:flex;flex-direction:column;gap:6px}
+.pair-item{padding:10px 12px;border:2px solid var(--border);border-radius:8px;background:#fff;cursor:pointer;text-align:center;font-size:.92em}
+.pair-item.selected{border-color:var(--primary);background:#dbeafe}
+.pair-item.paired{opacity:.5;cursor:default;border-color:var(--success);background:#d1fae5}
+.pairs-list{margin-top:10px}
+.pair-row{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:#f1f5f9;border-radius:6px;margin-bottom:4px;font-size:.85em}
+.pair-row .remove{cursor:pointer;color:var(--danger);font-weight:700;margin-left:6px}
+
+.page-numbers {
+  display: flex;
+  gap: 3px;
+  flex-wrap: nowrap;
+  justify-content: center;
+  flex: 1;
+  overflow-x: auto;
+  padding: 0 3px;
+}
+.page-num {
+  min-width: 28px;
+  height: 26px;
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: .7em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  white-space: nowrap;
+  transition: all .15s;
+  flex-shrink: 0;
+}
+.page-num.page-num-e { background: #eff6ff; border-color: #93c5fd; color: #1e40af; }
+.page-num.page-num-t { background: #fffbeb; border-color: #fcd34d; color: #92400e; }
+.page-num.page-num-e:hover { background: #dbeafe; border-color: var(--primary); }
+.page-num.page-num-t:hover { background: #fef3c7; border-color: var(--secondary); }
+.page-num.page-num-e.active { background: var(--primary); color: #fff; border-color: var(--primary); font-weight: 600; }
+.page-num.page-num-t.active { background: var(--secondary); color: #fff; border-color: var(--secondary); font-weight: 600; }
+.page-num:disabled { opacity: 1; cursor: default; }
+.page-num.page-num-e:disabled:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+.page-num.page-num-t:disabled:hover { background: var(--secondary); color: #fff; border-color: var(--secondary); }
+
+@media(max-width:1100px){
+  .main-container{grid-template-columns:180px 1fr}
+  .content-area{padding:18px 20px}
+}
+@media(max-width:760px){
+  .main-container{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .content-area{padding:16px}
+  header{font-size:.9em}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Math Tutoring by Deni</div>
+  <div class="topic">Topik: Bilangan dan Operasi Hitung Dasar <span class="tr">Topic: Numbers and Basic Arithmetic Operations</span></div>
+  <button id="classRulesBtn">Class Rules <span class="tr">Aturan Kelas</span></button>
+</header>
+<div class="main-container">
+  <nav class="sidebar" id="sidebar"></nav>
+  <main class="content-area">
+    <div id="pageContent"></div>
+    <div class="pagination">
+      <button id="prevBtn">← Previous <span class="tr">Sebelumnya</span></button>
+      <div class="page-numbers" id="pageNums"></div>
+      <button id="nextBtn">Next <span class="tr">Berikutnya</span> →</button>
+    </div>
+  </main>
+</div>
+<div id="classRulesModal" class="modal">
+  <div class="modal-content">
+    <h3>Class Rules <span class="tr">Aturan Kelas</span></h3>
+    <ul>
+      <li>Berbicara secara bergantian <span class="tr">Speak in turn</span></li>
+      <li>Meminta izin jika ingin meninggalkan kelas <span class="tr">Ask permission before leaving the class</span></li>
+      <li>Menyalakan microphone dan camera jika diperlukan <span class="tr">Turn on microphone and camera when needed</span></li>
+    </ul>
+    <button class="modal-close">Close <span class="tr">Tutup</span></button>
+  </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  if(!window.renderMathInElement){setTimeout(arguments.callee,50);return;}
+  
+  const sectionsData = {
+    a: {
+      title: 'Spiral Review Warm-up',
+      titleEn: 'Spiral Review Warm-up',
+      time: '00:00 - 00:10',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Mengenal Bilangan 1-10', pageTitleEn:'Recognizing Numbers 1-10',
+          body:`
+            <p>Hari ini kita akan belajar berhitung! Bilangan adalah simbol yang menunjukkan jumlah benda. <span class="tr">Today we will learn to count! Numbers are symbols that show the quantity of objects.</span></p>
+            <div class="illustration">
+              <div style="font-size:2.5em">🍎 🍎 🍎</div>
+              <div style="font-size:.82em;color:var(--muted);margin-top:6px">Ada 3 apel <span class="tr">There are 3 apples</span></div>
+            </div>
+            <div class="math-block">
+              <strong>Penjumlahan (Addition):</strong> Menambahkan benda satu dengan benda lainnya. <span class="tr">Adding one object to another.</span><br>
+              $2 + 1 = 3$ <span class="tr">2 plus 1 equals 3</span>
+            </div>
+            <div class="example-box"><h4>Contoh <span class="tr">Example</span></h4>
+              Hitung jumlah buah: <span class="tr">Count the fruits:</span><br>
+              🍓🍓 + 🍓 = ... <span class="tr">Strawberries plus strawberry equals...</span>
+              <ol>
+                <li>Mulai dari 2: $2$ <span class="tr">Start from 2</span></li>
+                <li>Tambah 1: $2 + 1$ <span class="tr">Add 1</span></li>
+                <li>Hitung total: $3$ <span class="tr">Count total</span></li>
+              </ol>
+              Jadi, $2 + 1 = 3$. <span class="tr">So, 2 plus 1 equals 3.</span>
+            </div>
+            <div class="tip-box"><h4>Tip <span class="tr">Tips</span></h4>
+              Gunakan jari tanganmu untuk membantu berhitung! <span class="tr">Use your fingers to help count!</span>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T1: Hitung Bintang', pageTitleEn:'Count Stars', taskType:'radio',
+          question:'Berapa jumlah bintang pada gambar di bawah ini? ⭐⭐⭐⭐⭐ <span class="tr">How many stars are in the picture below?</span>',
+          options:[
+            {text:'$3$ <span class="tr">Three</span>', correct:false},
+            {text:'$4$ <span class="tr">Four</span>', correct:false},
+            {text:'$5$ <span class="tr">Five</span>', correct:true},
+            {text:'$6$ <span class="tr">Six</span>', correct:false}
+          ],
+          explanation:`<p>Mari kita hitung bintangnya satu per satu: 1, 2, 3, 4, 5. <span class="tr">Let's count the stars one by one: 1, 2, 3, 4, 5.</span></p>
+            <p>Jadi, jawabannya adalah $5$. <span class="tr">So, the answer is 5.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Hitung Apel', pageTitleEn:'Count Apples', taskType:'fill',
+          question:'Ada berapa apel di piring? 🍏🍏🍏🍏 <span class="tr">How many apples are on the plate?</span>',
+          correctAnswer:'4', acceptableAnswers:['4','empat'],
+          explanation:`<p>Kita hitung bersama: 1, 2, 3, 4. <span class="tr">Let's count together: 1, 2, 3, 4.</span></p>
+            <p>Jadi, ada $4$ apel. <span class="tr">So, there are 4 apples.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Jumlah Mobil', pageTitleEn:'Number of Cars', taskType:'truefalse',
+          question:'Benar atau salah: Jumlah mobil di bawah ini adalah 3. 🚗🚗🚗🚗 <span class="tr">True or false: The number of cars below is 3.</span>',
+          correctAnswer:'false',
+          explanation:`<p>Mari kita hitung mobilnya: 1, 2, 3, 4. Jumlah mobil adalah 4, bukan 3. <span class="tr">Let's count the cars: 1, 2, 3, 4. The number of cars is 4, not 3.</span></p>
+            <p>Jawaban: <strong>Salah (False)</strong>. <span class="tr">Answer: False.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Penjumlahan Dasar', pageTitleEn:'Basic Addition',
+          body:`
+            <p>Penjumlahan adalah menggabungkan dua kelompok benda menjadi satu. <span class="tr">Addition is combining two groups of objects into one.</span></p>
+            <div class="math-block">
+              $1 + 1 = 2$ <span class="tr">1 plus 1 equals 2</span><br>
+              $2 + 2 = 4$ <span class="tr">2 plus 2 equals 4</span>
+            </div>
+            <div class="illustration">
+              <div style="font-size:2.5em">🎈🎈 + 🎈🎈 = 🎈🎈🎈🎈</div>
+              <div style="font-size:.82em;color:var(--muted);margin-top:6px">2 balon ditambah 2 balon sama dengan 4 balon <span class="tr">2 balloons plus 2 balloons equals 4 balloons</span></div>
+            </div>
+            <div class="example-box"><h4>Contoh <span class="tr">Example</span></h4>
+              Hitung: $3 + 2 = \\dots$ <span class="tr">Calculate: 3 plus 2 equals...</span>
+              <ol>
+                <li>Ambil 3 benda: 🍎🍎🍎 <span class="tr">Take 3 objects</span></li>
+                <li>Tambah 2 benda: 🍎🍎 <span class="tr">Add 2 objects</span></li>
+                <li>Hitung semua: 1, 2, 3, 4, 5. <span class="tr">Count all</span></li>
+              </ol>
+              Jadi, $3 + 2 = 5$. <span class="tr">So, 3 plus 2 equals 5.</span>
+            </div>
+            <div class="tip-box"><h4>Simbol <span class="tr">Symbols</span></h4>
+              Tambah ($+$) artinya menjumlahkan. Sama dengan ($=$) artinya hasilnya. <span class="tr">Plus means adding. Equals means the result.</span>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T4: Jumlah Balon', pageTitleEn:'Total Balloons', taskType:'fill',
+          question:'Hitung jumlah balon! 🎈🎈🎈 + 🎈🎈 = ... <span class="tr">Count the balloons! 3 plus 2 equals...</span>',
+          correctAnswer:'5', acceptableAnswers:['5','lima'],
+          explanation:`<p>Ada 3 balon, lalu ditambah 2 balon. <span class="tr">There are 3 balloons, then add 2 balloons.</span></p>
+            <p>Hitung semua: 1, 2, 3, 4, 5. <span class="tr">Count all: 1, 2, 3, 4, 5.</span></p>
+            <p>$3 + 2 = 5$. <span class="tr">3 plus 2 equals 5.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Persamaan Benar', pageTitleEn:'Correct Equation', taskType:'checkbox',
+          question:'Pilih persamaan penjumlahan yang hasilnya 5! <span class="tr">Select the addition equations that result in 5!</span>',
+          options:[
+            {text:'$2 + 3 = 5$ <span class="tr">2 plus 3 equals 5</span>', correct:true},
+            {text:'$1 + 4 = 5$ <span class="tr">1 plus 4 equals 5</span>', correct:true},
+            {text:'$2 + 2 = 5$ <span class="tr">2 plus 2 equals 5</span>', correct:false},
+            {text:'$5 + 1 = 5$ <span class="tr">5 plus 1 equals 5</span>', correct:false}
+          ],
+          explanation:`<p>Mari kita cek satu per satu: <span class="tr">Let's check one by one:</span></p>
+            <ul>
+              <li>$2 + 3$: 🍏🍏 + 🍏🍏🍏 = 5. Benar. <span class="tr">True.</span></li>
+              <li>$1 + 4$: 🍏 + 🍏🍏🍏🍏 = 5. Benar. <span class="tr">True.</span></li>
+              <li>$2 + 2$: 🍏🍏 + 🍏🍏 = 4. Salah. <span class="tr">False.</span></li>
+              <li>$5 + 1$: 🍏🍏🍏🍏🍏 + 🍏 = 6. Salah. <span class="tr">False.</span></li>
+            </ul>`
+        },
+        { type:'task', pageTitle:'T6: Pasangkan Hasil', pageTitleEn:'Match the Results', taskType:'pairing',
+          question:'Pasangkan penjumlahan dengan hasil yang benar! <span class="tr">Match the addition with the correct result!</span>',
+          pairs:[
+            {left:'$1 + 1$', right:'$2$'},
+            {left:'$2 + 2$', right:'$4$'},
+            {left:'$3 + 2$', right:'$5$'},
+            {left:'$4 + 1$', right:'$5$'}
+          ],
+          explanation:`<p>Hitung setiap penjumlahan: <span class="tr">Calculate each addition:</span></p>
+            <ul>
+              <li>$1 + 1 = 2$ <span class="tr">1 plus 1 equals 2</span></li>
+              <li>$2 + 2 = 4$ <span class="tr">2 plus 2 equals 4</span></li>
+              <li>$3 + 2 = 5$ <span class="tr">3 plus 2 equals 5</span></li>
+              <li>$4 + 1 = 5$ <span class="tr">4 plus 1 equals 5</span></li>
+            </ul>`
+        },
+        { type:'explanation', pageTitle:'E3: Pengurangan Dasar', pageTitleEn:'Basic Subtraction',
+          body:`
+            <p>Pengurangan adalah mengambil sebagian benda dari sekelompok benda. <span class="tr">Subtraction is taking away some objects from a group.</span></p>
+            <div class="math-block">
+              $5 - 2 = 3$ <span class="tr">5 minus 2 equals 3</span><br>
+              $4 - 1 = 3$ <span class="tr">4 minus 1 equals 3</span>
+            </div>
+            <div class="illustration">
+              <div style="font-size:2.5em">🍪🍪🍪🍪🍪 ➖ 🍪🍪 = 🍪🍪🍪</div>
+              <div style="font-size:.82em;color:var(--muted);margin-top:6px">5 kue dikurangi 2 kue sama dengan 3 kue <span class="tr">5 cookies minus 2 cookies equals 3 cookies</span></div>
+            </div>
+            <div class="example-box"><h4>Contoh <span class="tr">Example</span></h4>
+              Hitung: $4 - 1 = \\dots$ <span class="tr">Calculate: 4 minus 1 equals...</span>
+              <ol>
+                <li>Sediakan 4 benda: ⭐⭐⭐⭐ <span class="tr">Provide 4 objects</span></li>
+                <li>Ambil/hilangkan 1 benda: ⭐ <span class="tr">Take away 1 object</span></li>
+                <li>Hitung sisanya: 1, 2, 3. <span class="tr">Count the remaining</span></li>
+              </ol>
+              Jadi, $4 - 1 = 3$. <span class="tr">So, 4 minus 1 equals 3.</span>
+            </div>
+            <div class="tip-box"><h4>Simbol <span class="tr">Symbols</span></h4>
+              Kurang ($-$) artinya mengambil/mengurangi. <span class="tr">Minus means taking away/subtracting.</span>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T7: Sisa Permen', pageTitleEn:'Remaining Candies', taskType:'radio',
+          question:'Ali punya 4 permen, lalu ia makan 1. Berapa sisa permennya? 🍬🍬🍬🍬 ➖ 🍬 <span class="tr">Ali has 4 candies, then he eats 1. How many candies are left?</span>',
+          options:[
+            {text:'$1$ <span class="tr">One</span>', correct:false},
+            {text:'$2$ <span class="tr">Two</span>', correct:false},
+            {text:'$3$ <span class="tr">Three</span>', correct:true},
+            {text:'$4$ <span class="tr">Four</span>', correct:false}
+          ],
+          explanation:`<p>Ali awalnya punya 4 permen. <span class="tr">Ali initially had 4 candies.</span></p>
+            <p>Ia makan 1, berarti kita kurangi 1. <span class="tr">He ate 1, meaning we subtract 1.</span></p>
+            <p>$4 - 1 = 3$. <span class="tr">4 minus 1 equals 3.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Jumlah Kelereng', pageTitleEn:'Number of Marbles', taskType:'truefalse',
+          question:'Benar atau salah: $5 - 2 = 2$. <span class="tr">True or false: 5 minus 2 equals 2.</span>',
+          correctAnswer:'false',
+          explanation:`<p>Mari kita hitung: 5 kelereng dikurangi 2 kelereng. <span class="tr">Let's calculate: 5 marbles minus 2 marbles.</span></p>
+            <p>⭐⭐⭐⭐⭐ ➖ ⭐⭐ = ⭐⭐⭐ (sisa 3). <span class="tr">remaining 3.</span></p>
+            <p>Hasilnya adalah $3$, bukan $2$. <span class="tr">The result is 3, not 2.</span></p>
+            <p>Jawaban: <strong>Salah (False)</strong>. <span class="tr">Answer: False.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Urutkan Hasil', pageTitleEn:'Order the Results', taskType:'sorting',
+          question:'Urutkan hasil pengurangan berikut dari yang terkecil ke terbesar! <span class="tr">Order the subtraction results from smallest to largest!</span>',
+          items:[
+            '$5 - 5 = 0$',
+            '$4 - 2 = 2$',
+            '$5 - 1 = 4$',
+            '$3 - 0 = 3$'
+          ],
+          correctOrder:[0,1,3,2],
+          explanation:`<p>Mari kita hitung dan urutkan hasilnya: <span class="tr">Let's calculate and order the results:</span></p>
+            <ol>
+              <li>$5 - 5 = 0$ <span class="tr">Result 0</span></li>
+              <li>$4 - 2 = 2$ <span class="tr">Result 2</span></li>
+              <li>$3 - 0 = 3$ <span class="tr">Result 3</span></li>
+              <li>$5 - 1 = 4$ <span class="tr">Result 4</span></li>
+            </ol>`
+        },
+        { type:'task', pageTitle:'T10: Sisa Apel', pageTitleEn:'Remaining Apples', taskType:'fill',
+          question:'Ada 6 apel di meja, 2 dimakan oleh Budi. Berapa sisa apel di meja? $6 - 2 = \\dots$ <span class="tr">There are 6 apples on the table, 2 are eaten by Budi. How many apples are left on the table?</span>',
+          correctAnswer:'4', acceptableAnswers:['4','empat'],
+          explanation:`<p>Kita kurangi jumlah apel yang dimakan dari total apel. <span class="tr">We subtract the number of apples eaten from the total apples.</span></p>
+            <p>$6 - 2 = 4$. <span class="tr">6 minus 2 equals 4.</span></p>`
+        }
+      ]
+    },
+    b: {
+      title: 'Introduction & Real-World Connection',
+      titleEn: 'Introduction & Real-World Connection',
+      time: '00:10 - 00:15',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Bermain di Taman', pageTitleEn:'Playing at the Park',
+          body:`
+            <p>Pernahkah kamu bermain di taman? Di taman, kita bisa melihat banyak benda yang bisa dihitung! <span class="tr">Have you ever played in a park? In the park, we can see many objects that can be counted!</span></p>
+            <div class="illustration">
+              <div style="font-size:2.5em">🌳🦆🦆🏀🌳</div>
+              <div style="font-size:.82em;color:var(--muted);margin-top:6px">Pemandangan di taman <span class="tr">Scenery at the park</span></div>
+            </div>
+            <div class="math-block">
+              <ul>
+                <li>Jumlah pohon (Number of trees): $2$ <span class="tr">2 trees</span></li>
+                <li>Jumlah bebek (Number of ducks): $2$ <span class="tr">2 ducks</span></li>
+                <li>Jumlah bola (Number of balls): $1$ <span class="tr">1 ball</span></li>
+              </ul>
+            </div>
+            <div class="example-box"><h4>Contoh <span class="tr">Example</span></h4>
+              Jika ada 2 bebek, lalu datang 1 bebek lagi, berapa total bebeknya? <span class="tr">If there are 2 ducks, then 1 more duck comes, what is the total number of ducks?</span>
+              <p>$2 + 1 = 3$ <span class="tr">2 plus 1 equals 3</span></p>
+              <p>Ada 3 bebek di taman. <span class="tr">There are 3 ducks in the park.</span></p>
+            </div>
+            <div class="tip-box"><h4>Tip <span class="tr">Tips</span></h4>
+              Matematika ada di mana-mana! Kita bisa berhitung benda di sekitar kita. <span class="tr">Math is everywhere! We can count objects around us.</span>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T1: Hitung Pohon', pageTitleEn:'Count Trees', taskType:'radio',
+          question:'Di taman ada 2 pohon, lalu ditanam 2 pohon lagi. Berapa total pohon di taman? 🌳🌳 + 🌳🌳 <span class="tr">In the park there are 2 trees, then 2 more trees are planted. What is the total number of trees in the park?</span>',
+          options:[
+            {text:'$2$ <span class="tr">Two</span>', correct:false},
+            {text:'$3$ <span class="tr">Three</span>', correct:false},
+            {text:'$4$ <span class="tr">Four</span>', correct:true},
+            {text:'$5$ <span class="tr">Five</span>', correct:false}
+          ],
+          explanation:`<p>Kita jumlahkan pohon yang ada dengan pohon yang baru ditanam. <span class="tr">We add the existing trees with the newly planted trees.</span></p>
+            <p>$2 + 2 = 4$. <span class="tr">2 plus 2 equals 4.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Hilangnya Bola', pageTitleEn:'Lost Ball', taskType:'fill',
+          question:'Ada 3 bola di lapangan, 1 bola ditendang keluar. Berapa sisa bola di lapangan? 🏀🏀🏀 ➖ 🏀 <span class="tr">There are 3 balls on the field, 1 ball is kicked out. How many balls are left on the field?</span>',
+          correctAnswer:'2', acceptableAnswers:['2','dua'],
+          explanation:`<p>Kita kurangi jumlah bola yang keluar dari total bola. <span class="tr">We subtract the number of balls that went out from the total balls.</span></p>
+            <p>$3 - 1 = 2$. <span class="tr">3 minus 1 equals 2.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Jumlah Bebek', pageTitleEn:'Number of Ducks', taskType:'truefalse',
+          question:'Benar atau salah: 4 bebek dikurangi 2 bebek sama dengan 1. 🦆🦆🦆🦆 ➖ 🦆🦆 <span class="tr">True or false: 4 ducks minus 2 ducks equals 1.</span>',
+          correctAnswer:'false',
+          explanation:`<p>Mari kita hitung: $4 - 2 = 2$. <span class="tr">Let's calculate: 4 minus 2 equals 2.</span></p>
+            <p>Sisa bebek adalah 2, bukan 1. <span class="tr">The remaining ducks are 2, not 1.</span></p>
+            <p>Jawaban: <strong>Salah (False)</strong>. <span class="tr">Answer: False.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Belanja di Toko', pageTitleEn:'Shopping at the Store',
+          body:`
+            <p>Ketika kita belanja di toko, kita juga menggunakan matematika. Kita harus menjumlahkan harga atau jumlah barang. <span class="tr">When we shop at the store, we also use math. We must add up the prices or the number of items.</span></p>
+            <div class="illustration">
+              <div style="font-size:2.5em">🛒🍎🍊</div>
+              <div style="font-size:.82em;color:var(--muted);margin-top:6px">Berbelanja buah <span class="tr">Shopping for fruits</span></div>
+            </div>
+            <div class="math-block">
+              Harga 1 apel = \$2 <span class="tr">Price of 1 apple</span><br>
+              Harga 1 jeruk = \$1 <span class="tr">Price of 1 orange</span>
+            </div>
+            <div class="example-box"><h4>Contoh <span class="tr">Example</span></h4>
+              Ibu membeli 2 apel dan 1 jeruk. Berapa total buah yang dibeli? <span class="tr">Mother buys 2 apples and 1 orange. What is the total fruit bought?</span>
+              <ol>
+                <li>Jumlah apel: $2$ <span class="tr">Number of apples</span></li>
+                <li>Jumlah jeruk: $1$ <span class="tr">Number of oranges</span></li>
+                <li>Total buah: $2 + 1 = 3$ <span class="tr">Total fruit</span></li>
+              </ol>
+            </div>
+            <div class="tip-box"><h4>Tip <span class="tr">Tips</span></h4>
+              Kata "total" atau "semuanya" biasanya berarti kita harus menjumlahkan. <span class="tr">The word "total" or "all" usually means we have to add.</span>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T4: Total Buah', pageTitleEn:'Total Fruits', taskType:'sorting',
+          question:'Urutkan total belanjaan dari yang paling sedikit ke paling banyak! <span class="tr">Order the total groceries from least to most!</span>',
+          items:[
+            '2 Apel + 1 Jeruk = 3',
+            '1 Apel + 1 Jeruk = 2',
+            '3 Apel + 2 Jeruk = 5',
+            '2 Apel + 2 Jeruk = 4'
+          ],
+          correctOrder:[1,0,3,2],
+          explanation:`<p>Mari kita hitung totalnya terlebih dahulu: <span class="tr">Let's calculate the totals first:</span></p>
+            <ol>
+              <li>$1 + 1 = 2$ <span class="tr">Total 2</span></li>
+              <li>$2 + 1 = 3$ <span class="tr">Total 3</span></li>
+              <li>$2 + 2 = 4$ <span class="tr">Total 4</span></li>
+              <li>$3 + 2 = 5$ <span class="tr">Total 5</span></li>
+            </ol>`
+        },
+        { type:'task', pageTitle:'T5: Total Permen', pageTitleEn:'Total Candies', taskType:'fill',
+          question:'Adi membeli 3 permen cokelat dan 3 permen karamel. Berapa total permen Adi? $3 + 3 = \\dots$ <span class="tr">Adi buys 3 chocolate candies and 3 caramel candies. What is the total number of Adi\'s candies?</span>',
+          correctAnswer:'6', acceptableAnswers:['6','enam'],
+          explanation:`<p>Kita jumlahkan semua permen yang dibeli Adi. <span class="tr">We add up all the candies Adi bought.</span></p>
+            <p>$3 + 3 = 6$. <span class="tr">3 plus 3 equals 6.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Pasangkan Belanjaan', pageTitleEn:'Match the Groceries', taskType:'pairing',
+          question:'Pasangkan belanjaan dengan total jumlahnya! <span class="tr">Match the groceries with their total amount!</span>',
+          pairs:[
+            {left:'2 Pisang + 2 Pisang', right:'4 Pisang'},
+            {left:'1 Roti + 2 Roti', right:'3 Roti'},
+            {left:'3 Susu + 1 Susu', right:'4 Susu'},
+            {left:'2 Telur + 3 Telur', right:'5 Telur'}
+          ],
+          explanation:`<p>Hitung setiap kelompok belanjaan: <span class="tr">Calculate each grocery group:</span></p>
+            <ul>
+              <li>$2 + 2 = 4$ <span class="tr">2 plus 2 equals 4</span></li>
+              <li>$1 + 2 = 3$ <span class="tr">1 plus 2 equals 3</span></li>
+              <li>$3 + 1 = 4$ <span class="tr">3 plus 1 equals 4</span></li>
+              <li>$2 + 3 = 5$ <span class="tr">2 plus 3 equals 5</span></li>
+            </ul>`
+        },
+        { type:'explanation', pageTitle:'E3: Berbagi Kue', pageTitleEn:'Sharing Cookies',
+          body:`
+            <p>Saat kita berbagi makanan dengan teman, kita menggunakan pengurangan. Kita mengambil sebagian untuk teman. <span class="tr">When we share food with friends, we use subtraction. We take some for our friend.</span></p>
+            <div class="illustration">
+              <div style="font-size:2.5em">🍪🍪🍪🍪🍪</div>
+              <div style="font-size:.82em;color:var(--muted);margin-top:6px">Ada 5 kue di toples <span class="tr">There are 5 cookies in the jar</span></div>
+            </div>
+            <div class="math-block">
+              Total kue = $5$ <span class="tr">Total cookies</span><br>
+              Diberikan ke teman = $2$ <span class="tr">Given to friend</span><br>
+              Sisa kue = $5 - 2 = 3$ <span class="tr">Remaining cookies</span>
+            </div>
+            <div class="example-box"><h4>Contoh <span class="tr">Example</span></h4>
+              Ada 4 permen, 3 dimakan. Berapa sisanya? <span class="tr">There are 4 candies, 3 are eaten. How many are left?</span>
+              <ol>
+                <li>Total permen awal: $4$ <span class="tr">Initial total candies</span></li>
+                <li>Permen yang dimakan: $3$ <span class="tr">Candies eaten</span></li>
+                <li>Sisa permen: $4 - 3 = 1$ <span class="tr">Remaining candies</span></li>
+              </ol>
+            </div>
+            <div class="tip-box"><h4>Tip <span class="tr">Tips</span></h4>
+              Kata "sisa", "diambil", atau "dimakan" biasanya berarti kita harus mengurangi. <span class="tr">The words "left", "taken", or "eaten" usually mean we have to subtract.</span>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T7: Sisa Kue', pageTitleEn:'Remaining Cookies', taskType:'radio',
+          question:'Ibu membuat 6 kue, lalu 4 kue dimakan oleh kakak. Berapa sisa kue di piring? <span class="tr">Mother made 6 cookies, then 4 cookies are eaten by brother. How many cookies are left on the plate?</span>',
+          options:[
+            {text:'$1$ <span class="tr">One</span>', correct:false},
+            {text:'$2$ <span class="tr">Two</span>', correct:true},
+            {text:'$3$ <span class="tr">Three</span>', correct:false},
+            {text:'$4$ <span class="tr">Four</span>', correct:false}
+          ],
+          explanation:`<p>Kita kurangi jumlah kue yang dimakan dari total kue. <span class="tr">We subtract the number of cookies eaten from the total cookies.</span></p>
+            <p>$6 - 4 = 2$. <span class="tr">6 minus 4 equals 2.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Sisa Buah', pageTitleEn:'Remaining Fruits', taskType:'truefalse',
+          question:'Benar atau salah: 5 apel dikurangi 1 apel sama dengan 3. <span class="tr">True or false: 5 apples minus 1 apple equals 3.</span>',
+          correctAnswer:'false',
+          explanation:`<p>Mari kita hitung: $5 - 1 = 4$. <span class="tr">Let's calculate: 5 minus 1 equals 4.</span></p>
+            <p>Sisa apel adalah 4, bukan 3. <span class="tr">The remaining apples are 4, not 3.</span></p>
+            <p>Jawaban: <strong>Salah (False)</strong>. <span class="tr">Answer: False.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Permen Adi', pageTitleEn:"Adi's Candies", taskType:'fill',
+          question:'Adi punya 8 permen, 3 diberikan kepada temannya. Berapa sisa permen Adi? $8 - 3 = \\dots$ <span class="tr">Adi has 8 candies, 3 are given to his friend. How many candies does Adi have left?</span>',
+          correctAnswer:'5', acceptableAnswers:['5','lima'],
+          explanation:`<p>Kita kurangi permen yang diberikan dari total permen Adi. <span class="tr">We subtract the candies given from Adi's total candies.</span></p>
+            <p>$8 - 3 = 5$. <span class="tr">8 minus 3 equals 5.</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Pasangkan Sisa', pageTitleEn:'Match the Remainders', taskType:'pairing',
+          question:'Pasangkan pengurangan dengan hasil baginya! <span class="tr">Match the subtraction with its correct result!</span>',
+          pairs:[
+            {left:'$5 - 2$', right:'$3$'},
+            {left:'$4 - 4$', right:'$0$'},
+            {left:'$6 - 3$', right:'$3$'},
+            {left:'$7 - 1$', right:'$6$'}
+          ],
+          explanation:`<p>Hitung setiap pengurangan: <span class="tr">Calculate each subtraction:</span></p>
+            <ul>
+              <li>$5 - 2 = 3$ <span class="tr">5 minus 2 equals 3</span></li>
+              <li>$4 - 4 = 0$ <span class="tr">4 minus 4 equals 0</span></li>
+              <li>$6 - 3 = 3$ <span class="tr">6 minus 3 equals 3</span></li>
+              <li>$7 - 1 = 6$ <span class="tr">7 minus 1 equals 6</span></li>
+            </ul>`
+        }
+      ]
+    },
+    c: {
+      title: 'Review of Prior Knowledge',
+      titleEn: 'Review of Prior Knowledge',
+      time: '00:15 - 00:20',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Mengenal Bilangan 11-20', pageTitleEn:'Recognizing Numbers 11-20',
+          body:`
+            <p>Setelah mengenal bilangan 1-10, sekarang kita lanjutkan ke bilangan 11-20. <span class="tr">After recognizing numbers 1-10, now we continue to numbers 11-20.</span></p>
+            <div class="illustration">
+              <div style="font-size:2.5em">🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈 ➕ 🎈 = 11</div>
+              <div style="font-size:.82em;color:var(--muted);margin-top:6px">10 balon ditambah 1 balon sama dengan 11 <span class="tr">10 balloons plus 1 balloon equals 11</span></div>
+            </div>
+            <div class="math-block">
+              $10 + 1 = 11$ <span class="tr">10 plus 1 equals 11</span><br>
+              $10 + 5 = 15$ <span class="tr">10 plus 5 equals 15</span><br>
+              $10 + 10 = 20$ <span class="tr">10 plus 10 equals 20</span>
+            </div>
+            <div class="example-box"><h4>Contoh <span class="tr">Example</span></h4>
+              Hitung jumlah kue: <span class="tr">Count the number of cookies:</span><br>
+              🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪 (11 kue) <span class="tr">11 cookies</span>
+              <p>Kita bisa melihat ada 10 kue, lalu ditambah 1 kue lagi. <span class="tr">We can see there are 10 cookies, then add 1 more cookie.</span></p>
+            </div>
+            <div class="tip-box"><h4>Tip <span class="tr">Tips</span></h4>
+              Angka 11 dibaca "sebelas", 12 dibaca "dua belas", dan seterusnya. <span class="tr">The number 11 is read "eleven", 12 is read "twelve", and so on.</span>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T1: Hitung Balon', pageTitleEn:'Count Balloons', taskType:'fill',
+          question:'Hitung jumlah balon di bawah ini! 🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈 <span class="tr">Count the number of balloons below!</span>',
+          correctAnswer:'12', acceptableAnswers:['12','dua belas'],
+          explanation:`<p>Mari kita hitung satu per satu: 1, 2, 3, ..., 12. <span class="tr">Let's count one by one: 1, 2, 3, ..., 12.</span></p>
+            <p>Jadi, jumlah balon adalah $12$. <span class="tr">So, the number of balloons is 12.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Bilangan 17', pageTitleEn:'Number 17', taskType:'radio',
+          question:'Manakah gambar yang menunjukkan bilangan 17? <span class="tr">Which picture shows the number 17?</span>',
+          options:[
+            {text:'🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎 <span class="tr">Apples</span>', correct:false},
+            {text:'⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐ <span class="tr">Stars</span>', correct:true},
+            {text:'🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪 <span class="tr">Cookies</span>', correct:false},
+            {text:'🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗🚗 <span class="tr">Cars</span>', correct:false}
+          ],
+          explanation:`<p>Kita hitung bintangnya: 10, lalu 11, 12, 13, 14, 15, 16, 17. <span class="tr">Let's count the stars: 10, then 11, 12, 13, 14, 15, 16, 17.</span></p>
+            <p>Jadi, jawabannya adalah $17$. <span class="tr">So, the answer is 17.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Urutkan Bilangan', pageTitleEn:'Order Numbers', taskType:'sorting',
+          question:'Urutkan bilangan berikut dari yang terkecil ke terbesar! <span class="tr">Order the numbers from smallest to largest!</span>',
+          items:[
+            '$15$',
+            '$11$',
+            '$19$',
+            '$13$'
+          ],
+          correctOrder:[1,3,0,2],
+          explanation:`<p>Mari kita urutkan: <span class="tr">Let's order them:</span></p>
+            <ol>
+              <li>$11$ (Sebelas) <span class="tr">Eleven</span></li>
+              <li>$13$ (Tiga belas) <span class="tr">Thirteen</span></li>
+              <li>$15$ (Lima belas) <span class="tr">Fifteen</span></li>
+              <li>$19$ (Sembilan belas) <span class="tr">Nineteen</span></li>
+            </ol>`
+        },
+        { type:'explanation', pageTitle:'E2: Penjumlahan dengan Hasil > 10', pageTitleEn:'Addition with Results > 10',
+          body:`
+            <p>Saat menjumlahkan dua bilangan dan hasilnya lebih dari 10, kita bisa menggunakan benda-benda di sekitar untuk membantu. <span class="tr">When adding two numbers and the result is more than 10, we can use objects around us to help.</span></p>
+            <div class="math-block">
+              $7 + 5 = \\dots$ <span class="tr">7 plus 5 equals...</span><br>
+              $8 + 4 = \\dots$ <span class="tr">8 plus 4 equals...</span>
+            </div>
+            <div class="example-box"><h4>Contoh <span class="tr">Example</span></h4>
+              Hitung $7 + 5$: <span class="tr">Calculate 7 plus 5:</span>
+              <ol>
+                <li>Sediakan 7 kelereng: ⚪⚪⚪⚪⚪⚪⚪ <span class="tr">Provide 7 marbles</span></li>
+                <li>Tambah 5 kelereng: ⚪⚪⚪⚪⚪ <span class="tr">Add 5 marbles</span></li>
+                <li>Hitung semua: 7, lalu 8, 9, 10, 11, 12. <span class="tr">Count all: 7, then 8, 9, 10, 11, 12.</span></li>
+              </ol>
+              Jadi, $7 + 5 = 12$. <span class="tr">So, 7 plus 5 equals 12.</span>
+            </div>
+            <div class="tip-box"><h4>Strategi <span class="tr">Strategy</span></h4>
+              Kamu bisa menghitung maju dari bilangan terbesar. Misal: 7 + 5, hitung dari 7 ke depan 5 langkah (8, 9, 10, 11, 12). <span class="tr">You can count on from the largest number. E.g., 7 + 5, count from 7 forward 5 steps.</span>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T4: Hasil 12', pageTitleEn:'Result 12', taskType:'checkbox',
+          question:'Pilih penjumlahan yang hasilnya 12! <span class="tr">Select the additions that result in 12!</span>',
+          options:[
+            {text:'$7 + 5 = 12$ <span class="tr">7 plus 5 equals 12</span>', correct:true},
+            {text:'$8 + 4 = 12$ <span class="tr">8 plus 4 equals 12</span>', correct:true},
+            {text:'$9 + 2 = 12$ <span class="tr">9 plus 2 equals 12</span>', correct:false},
+            {text:'$6 + 6 = 12$ <span class="tr">6 plus 6 equals 12</span>', correct:true}
+          ],
+          explanation:`<p>Mari kita cek: <span class="tr">Let's check:</span></p>
+            <ul>
+              <li>$7 + 5 = 12$ (Benar) <span class="tr">True</span></li>
+              <li>$8 + 4 = 12$ (Benar) <span class="tr">True</span></li>
+              <li>$9 + 2 = 11$ (Salah) <span class="tr">False</span></li>
+              <li>$6 + 6 = 12$ (Benar) <span class="tr">True</span></li>
+            </ul>`
+        },
+        { type:'task', pageTitle:'T5: Jumlah Kelereng', pageTitleEn:'Total Marbles', taskType:'fill',
+          question:'Ali punya 9 kelereng, lalu mendapat 4 kelereng lagi. Berapa total kelereng Ali? $9 + 4 = \\dots$ <span class="tr">Ali has 9 marbles, then gets 4 more marbles. What is the total number of Ali\'s marbles?</span>',
+          correctAnswer:'13', acceptableAnswers:['13','tiga belas'],
+          explanation:`<p>Kita jumlahkan kelereng Ali. <span class="tr">We add Ali's marbles.</span></p>
+            <p>Hitung maju dari 9: 10, 11, 12, 13. <span class="tr">Count on from 9: 10, 11, 12, 13.</span></p>
+            <p>$9 + 4 = 13$. <span class="tr">9 plus 4 equals 13.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Pasangkan Hasil', pageTitleEn:'Match the Results', taskType:'pairing',
+          question:'Pasangkan penjumlahan dengan hasil yang benar! <span class="tr">Match the addition with the correct result!</span>',
+          pairs:[
+            {left:'$8 + 3$', right:'$11$'},
+            {left:'$7 + 4$', right:'$11$'},
+            {left:'$9 + 2$', right:'$11$'},
+            {left:'$6 + 5$', right:'$11$'}
+          ],
+          explanation:`<p>Semua penjumlahan di atas jika dihitung hasilnya adalah 11. <span class="tr">All the additions above result in 11.</span></p>
+            <ul>
+              <li>$8 + 3 = 11$ <span class="tr">8 plus 3 equals 11</span></li>
+              <li>$7 + 4 = 11$ <span class="tr">7 plus 4 equals 11</span></li>
+              <li>$9 + 2 = 11$ <span class="tr">9 plus 2 equals 11</span></li>
+              <li>$6 + 5 = 11$ <span class="tr">6 plus 5 equals 11</span></li>
+            </ul>`
+        },
+        { type:'explanation', pageTitle:'E3: Pengurangan dari Bilangan 20', pageTitleEn:'Subtraction from 20',
+          body:`
+            <p>Pengurangan dengan bilangan yang lebih besar juga menggunakan cara yang sama. Kita mengambil sebagian benda dari total benda. <span class="tr">Subtraction with larger numbers also uses the same method. We take some objects from the total objects.</span></p>
+            <div class="math-block">
+              $15 - 4 = \\dots$ <span class="tr">15 minus 4 equals...</span><br>
+              $20 - 5 = \\dots$ <span class="tr">20 minus 5 equals...</span>
+            </div>
+            <div class="example-box"><h4>Contoh <span class="tr">Example</span></h4>
+              Hitung $15 - 4$: <span class="tr">Calculate 15 minus 4:</span>
+              <ol>
+                <li>Sediakan 15 benda: 🍓🍓🍓🍓🍓🍓🍓🍓🍓🍓🍓🍓🍓🍓🍓 <span class="tr">Provide 15 objects</span></li>
+                <li>Ambil 4 benda: 🍓🍓🍓🍓 <span class="tr">Take 4 objects</span></li>
+                <li>Hitung sisanya: 11. <span class="tr">Count the rest</span></li>
+              </ol>
+              Jadi, $15 - 4 = 11$. <span class="tr">So, 15 minus 4 equals 11.</span>
+            </div>
+            <div class="tip-box"><h4>Strategi <span class="tr">Strategy</span></h4>
+              Kamu bisa menghitung mundur dari bilangan terbesar. Misal: 15 - 4, hitung mundur dari 15 sebanyak 4 langkah (14, 13, 12, 11). <span class="tr">You can count back from the largest number. E.g., 15 - 4, count back from 15 for 4 steps.</span>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T7: Pengurangan 18', pageTitleEn:'Subtraction 18', taskType:'radio',
+          question:'Hasil dari $18 - 6$ adalah ... <span class="tr">The result of 18 minus 6 is...</span>',
+          options:[
+            {text:'$10$ <span class="tr">Ten</span>', correct:false},
+            {text:'$11$ <span class="tr">Eleven</span>', correct:false},
+            {text:'$12$ <span class="tr">Twelve</span>', correct:true},
+            {text:'$14$ <span class="tr">Fourteen</span>', correct:false}
+          ],
+          explanation:`<p>Kita kurangi 18 dengan 6. <span class="tr">We subtract 18 by 6.</span></p>
+            <p>Hitung mundur dari 18: 17, 16, 15, 14, 13, 12. <span class="tr">Count back from 18: 17, 16, 15, 14, 13, 12.</span></p>
+            <p>$18 - 6 = 12$. <span class="tr">18 minus 6 equals 12.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Cek Pengurangan', pageTitleEn:'Check Subtraction', taskType:'truefalse',
+          question:'Benar atau salah: $20 - 8 = 12$. <span class="tr">True or false: 20 minus 8 equals 12.</span>',
+          correctAnswer:'true',
+          explanation:`<p>Mari kita hitung mundur dari 20 sebanyak 8 langkah: 19, 18, 17, 16, 15, 14, 13, 12. <span class="tr">Let's count back from 20 for 8 steps: 19, 18, 17, 16, 15, 14, 13, 12.</span></p>
+            <p>Hasilnya adalah $12$. <span class="tr">The result is 12.</span></p>
+            <p>Jawaban: <strong>Benar (True)</strong>. <span class="tr">Answer: True.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Urutkan Hasil Kurang', pageTitleEn:'Order Subtraction Results', taskType:'sorting',
+          question:'Urutkan hasil pengurangan berikut dari yang terkecil ke terbesar! <span class="tr">Order the subtraction results from smallest to largest!</span>',
+          items:[
+            '$20 - 10 = 10$',
+            '$15 - 5 = 10$',
+            '$10 - 5 = 5$',
+            '$12 - 2 = 10$'
+          ],
+          correctOrder:[2,0,1,3],
+          explanation:`<p>Mari kita hitung dan urutkan: <span class="tr">Let's calculate and order:</span></p>
+            <ol>
+              <li>$10 - 5 = 5$ <span class="tr">Result 5</span></li>
+              <li>$20 - 10 = 10$ <span class="tr">Result 10</span></li>
+              <li>$15 - 5 = 10$ <span class="tr">Result 10</span></li>
+              <li>$12 - 2 = 10$ <span class="tr">Result 10</span></li>
+            </ol>
+            <p>(Catatan: Untuk hasil yang sama seperti 10, urutannya bebas) <span class="tr">(Note: For the same result like 10, the order is free)</span></p>`
+        },
+        { type:'task', pageTitle:'T10: Sisa Apel', pageTitleEn:'Remaining Apples', taskType:'fill',
+          question:'Ada 16 apel di keranjang, 5 di antaranya busuk dan dibuang. Berapa sisa apel yang baik? $16 - 5 = \\dots$ <span class="tr">There are 16 apples in the basket, 5 of them are rotten and thrown away. How many good apples are left?</span>',
+          correctAnswer:'11', acceptableAnswers:['11','sebelas'],
+          explanation:`<p>Kita kurangi jumlah apel yang dibuang dari total apel. <span class="tr">We subtract the number of thrown apples from the total apples.</span></p>
+            <p>Hitung mundur dari 16: 15, 14, 13, 12, 11. <span class="tr">Count back from 16: 15, 14, 13, 12, 11.</span></p>
+            <p>$16 - 5 = 11$. <span class="tr">16 minus 5 equals 11.</span></p>`
+        }
+      ]
+    },
+    d: {
+      title: 'Problem Introduction',
+      titleEn: 'Problem Introduction',
+      time: '00:20 - 00:30',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Pola Bilangan', pageTitleEn:'Number Patterns',
+          body:`
+            <p>Pola bilangan adalah urutan angka yang mengikuti aturan tertentu. <span class="tr">A number pattern is a sequence of numbers that follows a specific rule.</span></p>
+            <div class="illustration">
+              <div style="font-size:2.5em">🐾🐾 &nbsp; 🐾🐾 &nbsp; 🐾🐾</div>
+              <div style="font-size:.82em;color:var(--muted);margin-top:6px">Lompat 2 langkah <span class="tr">Skip 2 steps</span></div>
+            </div>
+            <div class="math-block">
+              <strong>Pola Loncat 2:</strong> <span class="tr">Skip 2 Pattern</span><br>
+              $2, 4, 6, 8, 10, \\dots$ <span class="tr">2, 4, 6, 8, 10, ...</span><br>
+              <strong>Pola Loncat 5:</strong> <span class="tr">Skip 5 Pattern</span><br>
+              $5, 10, 15, 20, \\dots$ <span class="tr">5, 10, 15, 20, ...</span>
+            </div>
+            <div class="example-box"><h4>Contoh <span class="tr">Example</span></h4>
+              Lanjutkan pola ini: $1, 2, 3, 1, 2, 3, 1, 2, \\dots$ <span class="tr">Continue this pattern:</span>
+              <ol>
+                <li>Lihat pola yang berulang: 1, 2, 3. <span class="tr">See the repeating pattern: 1, 2, 3.</span></li>
+                <li>Setelah 2, pasti kembali ke 3. <span class="tr">After 2, it must return to 3.</span></li>
+              </ol>
+              Jadi, bilangan selanjutnya adalah $3$. <span class="tr">So, the next number is 3.</span>
+            </div>
+            <div class="tip-box"><h4>Tip <span class="tr">Tips</span></h4>
+              Cari aturan polanya, apakah bertambah 1, 2, atau loncat tertentu. <span class="tr">Find the pattern rule, whether it adds 1, 2, or skips a certain number.</span>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T1: Lanjutan Pola', pageTitleEn:'Pattern Continuation', taskType:'fill',
+          question:'Lanjutkan pola bilangan berikut! $5, 10, 15, 20, \\dots$ <span class="tr">Continue the following number pattern!</span>',
+          correctAnswer:'25', acceptableAnswers:['25','dua lima'],
+          explanation:`<p>Pola di atas melompat 5 angka setiap kali. <span class="tr">The pattern above skips 5 numbers each time.</span></p>
+            <p>$20 + 5 = 25$. <span class="tr">20 plus 5 equals 25.</span></p>
+            <p>Jadi, bilangan selanjutnya adalah $25$. <span class="tr">So, the next number is 25.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Bilangan Loncat 2', pageTitleEn:'Skip Count by 2', taskType:'radio',
+          question:'Manakah yang merupakan pola bilangan loncat 2? <span class="tr">Which is a skip count by 2 pattern?</span>',
+          options:[
+            {text:'$1, 2, 3, 4, 5$ <span class="tr">1, 2, 3, 4, 5</span>', correct:false},
+            {text:'$2, 4, 6, 8, 10$ <span class="tr">2, 4, 6, 8, 10</span>', correct:true},
+            {text:'$5, 10, 15, 20$ <span class="tr">5, 10, 15, 20</span>', correct:false},
+            {text:'$1, 3, 1, 3$ <span class="tr">1, 3, 1, 3</span>', correct:false}
+          ],
+          explanation:`<p>Pola loncat 2 berarti setiap bilangan bertambah 2 dari bilangan sebelumnya. <span class="tr">A skip count by 2 pattern means each number increases by 2 from the previous number.</span></p>
+            <p>$2, 2+2=4, 4+2=6, 6+2=8, 8+2=10$. <span class="tr">2, 2+2=4, 4+2=6, 6+2=8, 8+2=10.</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Urutkan Pola', pageTitleEn:'Order the Pattern', taskType:'sorting',
+          question:'Urutkan bilangan ini menjadi pola loncat 10! <span class="tr">Order these numbers into a skip count by 10 pattern!</span>',
+          items:[
+            '$30$',
+            '$10$',
+            '$40$',
+            '$20$'
+          ],
+          correctOrder:[1,3,0,2],
+          explanation:`<p>Pola loncat 10 dimulai dari yang terkecil: <span class="tr">The skip count by 10 pattern starts from the smallest:</span></p>
+            <ol>
+              <li>$10$ <span class="tr">Ten</span></li>
+              <li>$20$ <span class="tr">Twenty</span></li>
+              <li>$30$ <span class="tr">Thirty</span></li>
+              <li>$40$ <span class="tr">Forty</span></li>
+            </ol>`
+        },
+        { type:'explanation', pageTitle:'E2: Operasi Campuran', pageTitleEn:'Mixed Operations',
+          body:`
+            <p>Kadang kita perlu menjumlahkan dan mengurangi dalam satu soal. Aturannya, kerjakan dari kiri ke kanan. <span class="tr">Sometimes we need to add and subtract in one problem. The rule is, work from left to right.</span></p>
+            <div class="math-block">
+              $5 + 2 - 1 = \\dots$ <span class="tr">5 plus 2 minus 1 equals...</span>
+            </div>
+            <div class="example-box"><h4>Contoh <span class="tr">Example</span></h4>
+              Hitung $4 + 3 - 2$: <span class="tr">Calculate 4 plus 3 minus 2:</span>
+              <ol>
+                <li>Hitung penjumlahan terlebih dahulu: $4 + 3 = 7$ <span class="tr">Calculate addition first</span></li>
+                <li>Lalu kurangkan dengan 2: $7 - 2 = 5$ <span class="tr">Then subtract by 2</span></li>
+              </ol>
+              Jadi, $4 + 3 - 2 = 5$. <span class="tr">So, 4 plus 3 minus 2 equals 5.</span>
+            </div>
+            <div class="tip-box"><h4>Tip <span class="tr">Tips</span></h4>
+              Kerjakan langkah demi langkah dari kiri ke kanan agar tidak salah. <span class="tr">Work step by step from left to right to avoid mistakes.</span>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T4: Hasil Operasi', pageTitleEn:'Operation Result', taskType:'checkbox',
+          question:'Pilih persamaan operasi campuran yang hasilnya 7! <span class="tr">Select the mixed operation equations that result in 7!</span>',
+          options:[
+            {text:'$4 + 5 - 2 = 7$ <span class="tr">4 plus 5 minus 2 equals 7</span>', correct:true},
+            {text:'$5 + 3 - 1 = 7$ <span class="tr">5 plus 3 minus 1 equals 7</span>', correct:true},
+            {text:'$8 - 2 + 1 = 7$ <span class="tr">8 minus 2 plus 1 equals 7</span>', correct:true},
+            {text:'$6 + 4 - 2 = 7$ <span class="tr">6 plus 4 minus 2 equals 7</span>', correct:false}
+          ],
+          explanation:`<p>Mari kita hitung: <span class="tr">Let's calculate:</span></p>
+            <ul>
+              <li>$4 + 5 = 9$, lalu $9 - 2 = 7$. (Benar) <span class="tr">True</span></li>
+              <li>$5 + 3 = 8$, lalu $8 - 1 = 7$. (Benar) <span class="tr">True</span></li>
+              <li>$8 - 2 = 6$, lalu $6 + 1 = 7$. (Benar) <span class="tr">True</span></li>
+              <li>$6 + 4 = 10$, lalu $10 - 2 = 8$. (Salah, hasilnya 8) <span class="tr">False, result is 8</span></li>
+            </ul>`
+        },
+        { type:'task', pageTitle:'T5: Hitung Langkah', pageTitleEn:'Calculate Steps', taskType:'fill',
+          question:'Hitung hasil dari $10 - 4 + 2 = \\dots$ <span class="tr">Calculate the result of 10 minus 4 plus 2</span>',
+          correctAnswer:'8', acceptableAnswers:['8','delapan'],
+          explanation:`<p>Kerjakan dari kiri ke kanan. <span class="tr">Work from left to right.</span></p>
+            <p>Pertama: $10 - 4 = 6$ <span class="tr">First</span></p>
+            <p>Kedua: $6 + 2 = 8$ <span class="tr">Second</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Pasangkan Operasi', pageTitleEn:'Match Operations', taskType:'pairing',
+          question:'Pasangkan operasi campuran dengan hasil yang benar! <span class="tr">Match the mixed operations with the correct result!</span>',
+          pairs:[
+            {left:'$5 + 5 - 2$', right:'$8$'},
+            {left:'$10 - 3 + 1$', right:'$8$'},
+            {left:'$6 + 4 - 2$', right:'$8$'},
+            {left:'$9 - 1 + 0$', right:'$8$'}
+          ],
+          explanation:`<p>Semua operasi di atas jika dihitung dari kiri ke kanan hasilnya adalah 8. <span class="tr">All operations above result in 8 when calculated from left to right.</span></p>
+            <ul>
+              <li>$5 + 5 = 10, 10 - 2 = 8$ <span class="tr">5 plus 5 equals 10, 10 minus 2 equals 8</span></li>
+              <li>$10 - 3 = 7, 7 + 1 = 8$ <span class="tr">10 minus 3 equals 7, 7 plus 1 equals 8</span></li>
+              <li>$6 + 4 = 10, 10 - 2 = 8$ <span class="tr">6 plus 4 equals 10, 10 minus 2 equals 8</span></li>
+              <li>$9 - 1 = 8, 8 + 0 = 8$ <span class="tr">9 minus 1 equals 8, 8 plus 0 equals 8</span></li>
+            </ul>`
+        },
+        { type:'explanation', pageTitle:'E3: Geometri dan Bandingkan', pageTitleEn:'Geometry and Comparison',
+          body:`
+            <p>Kita juga bisa membandingkan berat benda dan mengenal bangun datar. <span class="tr">We can also compare the weight of objects and recognize flat shapes.</span></p>
+            <div class="math-block">
+              <strong>Bangun Datar:</strong> <span class="tr">Flat Shapes</span><br>
+              Lingkaran (Circle): Tidak memiliki sudut. <span class="tr">Has no corners.</span><br>
+              Segitiga (Triangle): Memiliki 3 sisi. <span class="tr">Has 3 sides.</span><br>
+              Segi Empat (Quadrilateral): Memiliki 4 sisi. <span class="tr">Has 4 sides.</span>
+            </div>
+            <div class="example-box"><h4>Contoh <span class="tr">Example</span></h4>
+              <p>Bandingkan berat Apel dan Semangka. <span class="tr">Compare the weight of an Apple and a Watermelon.</span></p>
+              <p>🍎 vs 🍉</p>
+              <p>Semangka jauh lebih besar, jadi semangka lebih berat. <span class="tr">Watermelon is much bigger, so the watermelon is heavier.</span></p>
+            </div>
+            <div class="tip-box"><h4>Tip <span class="tr">Tips</span></h4>
+              Gunakan matamu untuk memperkirakan mana yang lebih besar atau lebih berat. <span class="tr">Use your eyes to estimate which is bigger or heavier.</span>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T7: Bandingkan Bobot', pageTitleEn:'Compare Weight', taskType:'radio',
+          question:'Manakah yang lebih berat? <span class="tr">Which is heavier?</span>',
+          options:[
+            {text:'🍏 Apel <span class="tr">Apple</span>', correct:false},
+            {text:'🍉 Semangka <span class="tr">Watermelon</span>', correct:true},
+            {text:'Sama berat <span class="tr">Same weight</span>', correct:false},
+            {text:'Tidak tahu <span class="tr">Don\'t know</span>', correct:false}
+          ],
+          explanation:`<p>Semangka jauh lebih besar dari apel, sehingga semangka pasti lebih berat. <span class="tr">Watermelon is much bigger than an apple, so the watermelon must be heavier.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Bangun Datar', pageTitleEn:'Flat Shapes', taskType:'truefalse',
+          question:'Benar atau salah: Bangun lingkaran tidak memiliki sudut. <span class="tr">True or false: A circle shape has no corners.</span>',
+          correctAnswer:'true',
+          explanation:`<p>Lingkaran adalah bangun melingkar sempurna yang tidak memiliki sudut. <span class="tr">A circle is a perfectly round shape that has no corners.</span></p>
+            <p>Jawaban: <strong>Benar (True)</strong>. <span class="tr">Answer: True.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Urutkan Bobot', pageTitleEn:'Order Weight', taskType:'sorting',
+          question:'Urutkan benda berikut dari yang paling ringan ke paling berat! <span class="tr">Order the following objects from lightest to heaviest!</span>',
+          items:[
+            'tikus (mouse)',
+            'gajah (elephant)',
+            'kucing (cat)'
+          ],
+          correctOrder:[0,2,1],
+          explanation:`<p>Mari kita urutkan: <span class="tr">Let's order them:</span></p>
+            <ol>
+              <li>Tikus (paling kecil) <span class="tr">Mouse (smallest)</span></li>
+              <li>Kucing (sedang) <span class="tr">Cat (medium)</span></li>
+              <li>Gajah (paling besar) <span class="tr">Elephant (largest)</span></li>
+            </ol>`
+        },
+        { type:'task', pageTitle:'T10: Sisi Bangun', pageTitleEn:'Shape Sides', taskType:'fill',
+          question:'Berapa jumlah sisi pada bangun segi empat? <span class="tr">How many sides does a quadrilateral shape have?</span>',
+          correctAnswer:'4', acceptableAnswers:['4','empat'],
+          explanation:`<p>Kata "segi empat" berarti bangun yang memiliki 4 sisi. <span class="tr">The word "quadrilateral" means a shape that has 4 sides.</span></p>
+            <p>Jadi, jawabannya adalah $4$. <span class="tr">So, the answer is 4.</span></p>`
+        }
+      ]
+    },
+    e: {
+      title: 'Guided Practice',
+      titleEn: 'Guided Practice',
+      time: '00:30 - 00:45',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Menjumlahkan Tiga Bilangan', pageTitleEn:'Adding Three Numbers',
+          body:`
+            <p>Saat menjumlahkan lebih dari dua bilangan, kita bisa mengelompokkannya agar lebih mudah. <span class="tr">When adding more than two numbers, we can group them to make it easier.</span></p>
+            <div class="illustration">
+              <div style="font-size:2.5em">🍎🍎 + 🍎🍎 + 🍎🍎 = 🍎🍎🍎🍎🍎🍎</div>
+              <div style="font-size:.82em;color:var(--muted);margin-top:6px">2 + 2 + 2 = 6 <span class="tr">2 plus 2 plus 2 equals 6</span></div>
+            </div>
+            <div class="math-block">
+              $2 + 2 + 2 = \\dots$ <span class="tr">2 plus 2 plus 2 equals...</span><br>
+              $(2 + 2) + 2 = \\dots$ <span class="tr">Group the first two</span>
+            </div>
+            <div class="example-box"><h4>Contoh <span class="tr">Example</span></h4>
+              Hitung $3 + 2 + 4$: <span class="tr">Calculate 3 plus 2 plus 4:</span>
+              <ol>
+                <li>Jumlahkan dua bilangan pertama: $3 + 2 = 5$ <span class="tr">Add the first two numbers</span></li>
+                <li>Hasilnya ditambah bilangan ketiga: $5 + 4 = 9$ <span class="tr">Add the result with the third number</span></li>
+              </ol>
+              Jadi, $3 + 2 + 4 = 9$. <span class="tr">So, 3 plus 2 plus 4 equals 9.</span>
+            </div>
+            <div class="tip-box"><h4>Tip <span class="tr">Tips</span></h4>
+              Cari pasangan bilangan yang mudah dijumlahkan, seperti angka yang menghasilkan 10. <span class="tr">Find pairs of numbers that are easy to add, like numbers that make 10.</span>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T1: Jumlahkan Tiga Buah', pageTitleEn:'Add Three Fruits', taskType:'radio',
+          question:'Hitung jumlah buah berikut! 🍎🍎🍎 + 🍎🍎 + 🍎 <span class="tr">Count the following fruits!</span>',
+          options:[
+            {text:'$5$ <span class="tr">Five</span>', correct:false},
+            {text:'$6$ <span class="tr">Six</span>', correct:true},
+            {text:'$7$ <span class="tr">Seven</span>', correct:false},
+            {text:'$8$ <span class="tr">Eight</span>', correct:false}
+          ],
+          explanation:`<p>Kita jumlahkan satu per satu: <span class="tr">We add one by one:</span></p>
+            <p>$3 + 2 = 5$ <span class="tr">3 plus 2 equals 5</span></p>
+            <p>$5 + 1 = 6$ <span class="tr">5 plus 1 equals 6</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Hasil Penjumlahan', pageTitleEn:'Addition Result', taskType:'fill',
+          question:'Hasil dari $4 + 3 + 2 = \\dots$ <span class="tr">The result of 4 plus 3 plus 2 is...</span>',
+          correctAnswer:'9', acceptableAnswers:['9','sembilan'],
+          explanation:`<p>Jumlahkan bertahap dari kiri: <span class="tr">Add gradually from the left:</span></p>
+            <p>$4 + 3 = 7$ <span class="tr">4 plus 3 equals 7</span></p>
+            <p>$7 + 2 = 9$ <span class="tr">7 plus 2 equals 9</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Cek Hasil', pageTitleEn:'Check Result', taskType:'truefalse',
+          question:'Benar atau salah: $5 + 5 + 5 = 10$. <span class="tr">True or false: 5 plus 5 plus 5 equals 10.</span>',
+          correctAnswer:'false',
+          explanation:`<p>Mari kita hitung: $5 + 5 = 10$, lalu $10 + 5 = 15$. <span class="tr">Let's calculate: 5 plus 5 equals 10, then 10 plus 5 equals 15.</span></p>
+            <p>Hasilnya adalah $15$, bukan $10$. <span class="tr">The result is 15, not 10.</span></p>
+            <p>Jawaban: <strong>Salah (False)</strong>. <span class="tr">Answer: False.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Soal Cerita Penjumlahan', pageTitleEn:'Addition Word Problem',
+          body:`
+            <p>Dita mempunyai gelang karet berwarna merah dan hijau. Gelang merah ada 24, gelang hijau ada 24. <span class="tr">Dita has red and green rubber bracelets. There are 24 red bracelets, 24 green bracelets.</span></p>
+            <div class="illustration">
+              <div style="font-size:2.5em">🔴🔴🔴🔴 (24) &nbsp; 🟢🟢🟢🟢 (24)</div>
+              <div style="font-size:.82em;color:var(--muted);margin-top:6px">Gelang merah dan hijau <span class="tr">Red and green bracelets</span></div>
+            </div>
+            <div class="math-block">
+              Gelang Merah = $24$ <span class="tr">Red Bracelets</span><br>
+              Gelang Hijau = $24$ <span class="tr">Green Bracelets</span><br>
+              Total = $24 + 24 = \\dots$ <span class="tr">Total</span>
+            </div>
+            <div class="example-box"><h4>Contoh <span class="tr">Example</span></h4>
+              Hitung total gelang Dita: <span class="tr">Calculate Dita's total bracelets:</span>
+              <ol>
+                <li>Tulis angka: $24 + 24$ <span class="tr">Write the numbers</span></li>
+                <li>Jumlahkan satuan: $4 + 4 = 8$ <span class="tr">Add units</span></li>
+                <li>Jumlahkan puluhan: $20 + 20 = 40$ <span class="tr">Add tens</span></li>
+                <li>Gabungkan: $40 + 8 = 48$ <span class="tr">Combine</span></li>
+              </ol>
+            </div>
+            <div class="tip-box"><h4>Strategi <span class="tr">Strategy</span></h4>
+              Pisahkan puluhan dan satuan agar lebih mudah menjumlahkan. <span class="tr">Separate tens and units to make adding easier.</span>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T4: Urutkan Hasil', pageTitleEn:'Order Results', taskType:'sorting',
+          question:'Urutkan hasil penjumlahan berikut dari terkecil ke terbesar! <span class="tr">Order the addition results from smallest to largest!</span>',
+          items:[
+            '$10 + 5 = 15$',
+            '$12 + 6 = 18$',
+            '$11 + 5 = 16$',
+            '$15 + 4 = 19$'
+          ],
+          correctOrder:[0,2,1,3],
+          explanation:`<p>Mari kita hitung dan urutkan: <span class="tr">Let's calculate and order:</span></p>
+            <ol>
+              <li>$10 + 5 = 15$ <span class="tr">Result 15</span></li>
+              <li>$11 + 5 = 16$ <span class="tr">Result 16</span></li>
+              <li>$12 + 6 = 18$ <span class="tr">Result 18</span></li>
+              <li>$15 + 4 = 19$ <span class="tr">Result 19</span></li>
+            </ol>`
+        },
+        { type:'task', pageTitle:'T5: Total Gelang', pageTitleEn:'Total Bracelets', taskType:'fill',
+          question:'Dita punya 24 gelang merah dan 24 gelang hijau. Berapa total seluruh gelang Dita? $24 + 24 = \\dots$ <span class="tr">Dita has 24 red bracelets and 24 green bracelets. What is the total number of Dita\'s bracelets?</span>',
+          correctAnswer:'48', acceptableAnswers:['48','empat puluh delapan'],
+          explanation:`<p>Jumlahkan satuan: $4 + 4 = 8$. <span class="tr">Add units: 4 plus 4 equals 8.</span></p>
+            <p>Jumlahkan puluhan: $20 + 20 = 40$. <span class="tr">Add tens: 20 plus 20 equals 40.</span></p>
+            <p>Total: $40 + 8 = 48$. <span class="tr">Total: 40 plus 8 equals 48.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Pasangkan Jumlah', pageTitleEn:'Match the Sums', taskType:'pairing',
+          question:'Pasangkan penjumlahan dengan hasil yang benar! <span class="tr">Match the addition with the correct result!</span>',
+          pairs:[
+            {left:'$10 + 10$', right:'$20$'},
+            {left:'$11 + 5$', right:'$16$'},
+            {left:'$8 + 9$', right:'$17$'},
+            {left:'$15 + 4$', right:'$19$'}
+          ],
+          explanation:`<p>Hitung masing-masing: <span class="tr">Calculate each:</span></p>
+            <ul>
+              <li>$10 + 10 = 20$ <span class="tr">10 plus 10 equals 20</span></li>
+              <li>$11 + 5 = 16$ <span class="tr">11 plus 5 equals 16</span></li>
+              <li>$8 + 9 = 17$ <span class="tr">8 plus 9 equals 17</span></li>
+              <li>$15 + 4 = 19$ <span class="tr">15 plus 4 equals 19</span></li>
+            </ul>`
+        },
+        { type:'explanation', pageTitle:'E3: Nilai Tempat (Puluhan & Satuan)', pageTitleEn:'Place Value (Tens & Ones)',
+          body:`
+            <p>Setiap angka dalam bilangan memiliki nilai tempat. Untuk bilangan 2 digit, ada Puluhan dan Satuan. <span class="tr">Every digit in a number has a place value. For 2-digit numbers, there are Tens and Ones.</span></p>
+            <div class="illustration">
+              <div style="font-size:2.5em">📦📦 (Puluhan) &nbsp; 🍎🍎🍎 (Satuan)</div>
+              <div style="font-size:.82em;color:var(--muted);margin-top:6px">2 Puluhan dan 3 Satuan = 23 <span class="tr">2 Tens and 3 Ones = 23</span></div>
+            </div>
+            <div class="math-block">
+              $179$ = $100$ (Ratusan) + $70$ (Puluhan) + $9$ (Satuan) <span class="tr">Hundreds, Tens, Ones</span>
+            </div>
+            <div class="example-box"><h4>Contoh <span class="tr">Example</span></h4>
+              <p>Tulis bentuk penjumlahan ratusan + puluhan + satuan dari 189. <span class="tr">Write the addition form of hundreds + tens + ones for 189.</span></p>
+              <ol>
+                <li>Angka ratusan: $100$ <span class="tr">Hundreds digit</span></li>
+                <li>Angka puluhan: $80$ <span class="tr">Tens digit</span></li>
+                <li>Angka satuan: $9$ <span class="tr">Ones digit</span></li>
+              </ol>
+              Jadi, $189 = 100 + 80 + 9$. <span class="tr">So, 189 equals 100 plus 80 plus 9.</span>
+            </div>
+            <div class="tip-box"><h4>Tip <span class="tr">Tips</span></h4>
+              Puluhan selalu diikuti angka 0 di belakang (10, 20, 30). <span class="tr">Tens are always followed by a 0 at the end (10, 20, 30).</span>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T7: Lambang Bilangan', pageTitleEn:'Number Symbol', taskType:'radio',
+          question:'Lambang bilangan seratus tujuh puluh sembilan adalah ... <span class="tr">The number symbol for one hundred seventy-nine is...</span>',
+          options:[
+            {text:'$179$ <span class="tr">One hundred seventy-nine</span>', correct:true},
+            {text:'$197$ <span class="tr">One hundred ninety-seven</span>', correct:false},
+            {text:'$79$ <span class="tr">Seventy-nine</span>', correct:false},
+            {text:'$1079$ <span class="tr">One thousand seventy-nine</span>', correct:false}
+          ],
+          explanation:`<p>Seratus = 100, tujuh puluh = 70, sembilan = 9. <span class="tr">One hundred = 100, seventy = 70, nine = 9.</span></p>
+            <p>$100 + 70 + 9 = 179$. <span class="tr">100 plus 70 plus 9 equals 179.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Bentuk Penjumlahan', pageTitleEn:'Addition Form', taskType:'truefalse',
+          question:'Benar atau salah: Bentuk penjumlahan ratusan + puluhan + satuan dari 189 adalah $100 + 80 + 9$. <span class="tr">True or false: The addition form of hundreds + tens + ones for 189 is 100 plus 80 plus 9.</span>',
+          correctAnswer:'true',
+          explanation:`<p>Angka 1 di tempat ratusan nilainya 100. <span class="tr">The digit 1 in the hundreds place is worth 100.</span></p>
+            <p>Angka 8 di tempat puluhan nilainya 80. <span class="tr">The digit 8 in the tens place is worth 80.</span></p>
+            <p>Angka 9 di tempat satuan nilainya 9. <span class="tr">The digit 9 in the ones place is worth 9.</span></p>
+            <p>Jawaban: <strong>Benar (True)</strong>. <span class="tr">Answer: True.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Urutkan Bilangan', pageTitleEn:'Order Numbers', taskType:'sorting',
+          question:'Urutkan bilangan berikut dari yang terkecil ke terbesar! <span class="tr">Order the numbers from smallest to largest!</span>',
+          items:[
+            '$79$',
+            '$179$',
+            '$97$',
+            '$197$'
+          ],
+          correctOrder:[0,2,1,3],
+          explanation:`<p>Mari kita urutkan: <span class="tr">Let's order them:</span></p>
+            <ol>
+              <li>$79$ (Tujuh puluh sembilan) <span class="tr">Seventy-nine</span></li>
+              <li>$97$ (Sembilan puluh tujuh) <span class="tr">Ninety-seven</span></li>
+              <li>$179$ (Seratus tujuh puluh sembilan) <span class="tr">One hundred seventy-nine</span></li>
+              <li>$197$ (Seratus sembilan puluh tujuh) <span class="tr">One hundred ninety-seven</span></li>
+            </ol>`
+        },
+        { type:'task', pageTitle:'T10: Pecahan Bilangan', pageTitleEn:'Number Breakdown', taskType:'fill',
+          question:'Bentuk penjumlahan ratusan + puluhan + satuan dari 189 adalah ... <span class="tr">The addition form of hundreds + tens + ones for 189 is...</span>',
+          correctAnswer:'100 + 80 + 9', acceptableAnswers:['100+80+9','100 + 80 + 9'],
+          explanation:`<p>Pisahkan angka berdasarkan nilai tempatnya: <span class="tr">Separate the numbers based on their place values:</span></p>
+            <p>Ratusan: $100$ <span class="tr">Hundreds</span></p>
+            <p>Puluhan: $80$ <span class="tr">Tens</span></p>
+            <p>Satuan: $9$ <span class="tr">Ones</span></p>
+            <p>Jadi, $189 = 100 + 80 + 9$. <span class="tr">So, 189 equals 100 plus 80 plus 9.</span></p>`
+        }
+      ]
+    },
+    f: {
+      title: 'Independent Practice',
+      titleEn: 'Independent Practice',
+      time: '00:45 - 00:55',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Pengurangan Bertahap', pageTitleEn:'Step-by-Step Subtraction',
+          body:`
+            <p>Pengurangan bertahap berarti kita mengurangkan bilangan satu per satu. <span class="tr">Step-by-step subtraction means we subtract numbers one by one.</span></p>
+            <div class="math-block">
+              $46 - 5 - 6 = \\dots$ <span class="tr">46 minus 5 minus 6 equals...</span>
+            </div>
+            <div class="example-box"><h4>Contoh <span class="tr">Example</span></h4>
+              Hitung $46 - 5 - 6$: <span class="tr">Calculate 46 minus 5 minus 6:</span>
+              <ol>
+                <li>Kurangkan 46 dengan 5: $46 - 5 = 41$ <span class="tr">Subtract 46 by 5</span></li>
+                <li>Hasilnya dikurangi 6: $41 - 6 = 35$ <span class="tr">Subtract the result by 6</span></li>
+              </ol>
+              Jadi, $46 - 5 - 6 = 35$. <span class="tr">So, 46 minus 5 minus 6 equals 35.</span>
+            </div>
+            <div class="tip-box"><h4>Tip <span class="tr">Tips</span></h4>
+              Kerjakan dari kiri ke kanan. Kurangkan dulu dua bilangan pertama, hasilnya dikurangi bilangan ketiga. <span class="tr">Work from left to right. Subtract the first two numbers, then subtract the result with the third number.</span>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T1: Hitung Bertahap', pageTitleEn:'Calculate Step-by-Step', taskType:'radio',
+          question:'Hasil dari $20 - 5 - 5 = \\dots$ <span class="tr">The result of 20 minus 5 minus 5 is...</span>',
+          options:[
+            {text:'$5$ <span class="tr">Five</span>', correct:false},
+            {text:'$10$ <span class="tr">Ten</span>', correct:true},
+            {text:'$15$ <span class="tr">Fifteen</span>', correct:false},
+            {text:'$20$ <span class="tr">Twenty</span>', correct:false}
+          ],
+          explanation:`<p>Kerjakan dari kiri: <span class="tr">Work from the left:</span></p>
+            <p>$20 - 5 = 15$ <span class="tr">20 minus 5 equals 15</span></p>
+            <p>$15 - 5 = 10$ <span class="tr">15 minus 5 equals 10</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Kurangi Bertahap', pageTitleEn:'Subtract Step-by-Step', taskType:'fill',
+          question:'Hasil dari $30 - 4 - 6 = \\dots$ <span class="tr">The result of 30 minus 4 minus 6 is...</span>',
+          correctAnswer:'20', acceptableAnswers:['20','dua puluh'],
+          explanation:`<p>Kerjakan dari kiri: <span class="tr">Work from the left:</span></p>
+            <p>$30 - 4 = 26$ <span class="tr">30 minus 4 equals 26</span></p>
+            <p>$26 - 6 = 20$ <span class="tr">26 minus 6 equals 20</span></p>`
+        },
+        { type:'task', pageTitle:'T3: Cek Hasil Kurang', pageTitleEn:'Check Subtraction Result', taskType:'truefalse',
+          question:'Benar atau salah: $50 - 10 - 10 = 35$. <span class="tr">True or false: 50 minus 10 minus 10 equals 35.</span>',
+          correctAnswer:'false',
+          explanation:`<p>Mari kita hitung: $50 - 10 = 40$, lalu $40 - 10 = 30$. <span class="tr">Let's calculate: 50 minus 10 equals 40, then 40 minus 10 equals 30.</span></p>
+            <p>Hasilnya adalah $30$, bukan $35$. <span class="tr">The result is 30, not 35.</span></p>
+            <p>Jawaban: <strong>Salah (False)</strong>. <span class="tr">Answer: False.</span></p>`
+        },
+        { type:'explanation', pageTitle:'E2: Membagi Sama Rata', pageTitleEn:'Sharing Equally',
+          body:`
+            <p>Membagi sama rata berarti memberikan jumlah benda yang sama kepada setiap orang. <span class="tr">Sharing equally means giving the same number of objects to each person.</span></p>
+            <div class="illustration">
+              <div style="font-size:2.5em">🍬🍬🍬🍬🍬🍬 ➡️ 🍬🍬🍬 &nbsp; 🍬🍬🍬</div>
+              <div style="font-size:.82em;color:var(--muted);margin-top:6px">6 permen dibagi ke 2 anak, masing-masing dapat 3 <span class="tr">6 candies divided to 2 kids, each gets 3</span></div>
+            </div>
+            <div class="example-box"><h4>Contoh <span class="tr">Example</span></h4>
+              <p>Adi punya 15 kelereng, Budi 12, Caca 6. Agar sama, berapa kelereng yang harus Adi berikan ke Caca? <span class="tr">Adi has 15 marbles, Budi 12, Caca 6. To be equal, how many marbles should Adi give to Caca?</span></p>
+              <ol>
+                <li>Hitung total kelereng: $15 + 12 + 6 = 33$ <span class="tr">Calculate total marbles</span></li>
+                <li>Bagi rata ke 3 anak: $33 \\div 3 = 11$ <span class="tr">Divide equally to 3 kids</span></li>
+                <li>Semua harus punya 11. <span class="tr">Everyone must have 11.</span></li>
+                <li>Adi (15) harus memberi: $15 - 11 = 4$ <span class="tr">Adi must give</span></li>
+              </ol>
+              Jadi, Adi harus memberikan 4 kelereng. <span class="tr">So, Adi must give 4 marbles.</span>
+            </div>
+            <div class="tip-box"><h4>Tip <span class="tr">Tips</span></h4>
+              Cari selisih antara jumlah miliknya dengan jumlah yang seharusnya sama rata. <span class="tr">Find the difference between what they have and the equal amount.</span>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T4: Bagi Permen', pageTitleEn:'Share Candies', taskType:'checkbox',
+          question:'Pernyataan mana yang benar tentang membagi 12 permen ke 3 anak secara rata? <span class="tr">Which statements are true about sharing 12 candies to 3 kids equally?</span>',
+          options:[
+            {text:'Setiap anak mendapat 4 permen <span class="tr">Each kid gets 4 candies</span>', correct:true},
+            {text:'$12 \\div 3 = 4$ <span class="tr">12 divided by 3 equals 4</span>', correct:true},
+            {text:'Setiap anak mendapat 3 permen <span class="tr">Each kid gets 3 candies</span>', correct:false},
+            {text:'Ada sisa 1 permen <span class="tr">There is 1 candy left</span>', correct:false}
+          ],
+          explanation:`<p>Jika 12 permen dibagi rata ke 3 anak: $12 \\div 3 = 4$. <span class="tr">If 12 candies are shared equally to 3 kids: 12 divided by 3 equals 4.</span></p>
+            <p>Berarti setiap anak mendapat 4 permen, dan tidak ada sisa. <span class="tr">Meaning each kid gets 4 candies, and there is no remainder.</span></p>`
+        },
+        { type:'task', pageTitle:'T5: Kelereng Caca', pageTitleEn:"Caca's Marbles", taskType:'fill',
+          question:'Caca punya 6 kelereng, tetapi seharusnya punya 11 agar sama rata. Berapa kelereng yang harus diterima Caca? <span class="tr">Caca has 6 marbles, but should have 11 to be equal. How many marbles must Caca receive?</span>',
+          correctAnswer:'5', acceptableAnswers:['5','lima'],
+          explanation:`<p>Caca butuh mencapai 11 kelereng. <span class="tr">Caca needs to reach 11 marbles.</span></p>
+            <p>Selisihnya: $11 - 6 = 5$. <span class="tr">The difference is 11 minus 6 equals 5.</span></p>
+            <p>Jadi, Caca harus menerima 5 kelereng. <span class="tr">So, Caca must receive 5 marbles.</span></p>`
+        },
+        { type:'task', pageTitle:'T6: Pasangkan Kelereng', pageTitleEn:'Match the Marbles', taskType:'pairing',
+          question:'Pasangkan anak dengan jumlah kelereng yang harus mereka berikan/terima agar semuanya punya 11! <span class="tr">Match the kid with the number of marbles they must give/receive so everyone has 11!</span>',
+          pairs:[
+            {left:'Adi (15)', right:'Beri 4 kelereng'},
+            {left:'Budi (12)', right:'Beri 1 kelereng'},
+            {left:'Caca (6)', right:'Terima 5 kelereng'},
+            {left:'Target Semua', right:'11 kelereng'}
+          ],
+          explanation:`<p>Mari kita hitung selisihnya: <span class="tr">Let's calculate the difference:</span></p>
+            <ul>
+              <li>Adi: $15 - 11 = 4$ (Beri 4) <span class="tr">Give 4</span></li>
+              <li>Budi: $12 - 11 = 1$ (Beri 1) <span class="tr">Give 1</span></li>
+              <li>Caca: $11 - 6 = 5$ (Terima 5) <span class="tr">Receive 5</span></li>
+            </ul>`
+        },
+        { type:'explanation', pageTitle:'E3: Soal Cerita Umur', pageTitleEn:'Age Word Problem',
+          body:`
+            <p>Soal cerita umur biasanya menanyakan berapa tahun lagi jumlah umur akan mencapai angka tertentu. <span class="tr">Age word problems usually ask how many years until the total age reaches a certain number.</span></p>
+            <div class="math-block">
+              Umur Ayah = $37$ <span class="tr">Father's age</span><br>
+              Umur Ibu = $30$ <span class="tr">Mother's age</span><br>
+              Umur Saya = $7$ <span class="tr">My age</span>
+            </div>
+            <div class="example-box"><h4>Contoh <span class="tr">Example</span></h4>
+              <p>Berapa tahun lagi jumlah umur kami semua 101 tahun? <span class="tr">How many years until our total age is 101 years?</span></p>
+              <ol>
+                <li>Hitung total umur sekarang: $37 + 30 + 7 = 74$ <span class="tr">Calculate current total age</span></li>
+                <li>Cari selisih dengan target: $101 - 74 = 27$ <span class="tr">Find difference with target</span></li>
+                <li>Karena 3 orang bertambah umur bersamaan, bagi 27 dengan 3: $27 \div 3 = 9$ <span class="tr">Divide by 3 people</span></li>
+              </ol>
+              Jadi, butuh 9 tahun lagi. <span class="tr">So, it takes 9 more years.</span>
+            </div>
+            <div class="tip-box"><h4>Tip <span class="tr">Tips</span></h4>
+              Setiap tahun, semua orang bertambah umur 1 tahun secara bersamaan! <span class="tr">Every year, everyone ages 1 year simultaneously!</span>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T7: Total Umur', pageTitleEn:'Total Age', taskType:'radio',
+          question:'Berapa tahun lagi agar jumlah umur mereka mencapai 101 tahun? (Ayah 37, Ibu 30, Saya 7) <span class="tr">How many years until their total age reaches 101 years?</span>',
+          options:[
+            {text:'$8$ Tahun <span class="tr">8 Years</span>', correct:false},
+            {text:'$9$ Tahun <span class="tr">9 Years</span>', correct:true},
+            {text:'$10$ Tahun <span class="tr">10 Years</span>', correct:false},
+            {text:'$11$ Tahun <span class="tr">11 Years</span>', correct:false}
+          ],
+          explanation:`<p>Total umur sekarang: $37 + 30 + 7 = 74$. <span class="tr">Current total age: 37 plus 30 plus 7 equals 74.</span></p>
+            <p>Selisih menuju 101: $101 - 74 = 27$. <span class="tr">Difference to 101: 101 minus 74 equals 27.</span></p>
+            <p>Bagi rata ke 3 orang: $27 \div 3 = 9$. <span class="tr">Divide equally to 3 people: 27 divided by 3 equals 9.</span></p>`
+        },
+        { type:'task', pageTitle:'T8: Cek Umur', pageTitleEn:'Check Age', taskType:'truefalse',
+          question:'Benar atau salah: Tahun depan, total umur mereka akan menjadi 77 tahun. <span class="tr">True or false: Next year, their total age will be 77 years.</span>',
+          correctAnswer:'true',
+          explanation:`<p>Total umur sekarang adalah 74. <span class="tr">The current total age is 74.</span></p>
+            <p>Tahun depan, setiap orang bertambah 1 tahun, jadi total bertambah 3 tahun. <span class="tr">Next year, each person ages 1 year, so the total increases by 3 years.</span></p>
+            <p>$74 + 3 = 77$. <span class="tr">74 plus 3 equals 77.</span></p>
+            <p>Jawaban: <strong>Benar (True)</strong>. <span class="tr">Answer: True.</span></p>`
+        },
+        { type:'task', pageTitle:'T9: Urutkan Langkah', pageTitleEn:'Order the Steps', taskType:'sorting',
+          question:'Urutkan langkah menyelesaikan soal umur! <span class="tr">Order the steps to solve the age problem!</span>',
+          items:[
+            'Hitung total umur sekarang: 37 + 30 + 7 = 74',
+            'Cari selisih dengan target: 101 - 74 = 27',
+            'Bagi selisih dengan jumlah orang: 27 / 3 = 9'
+          ],
+          correctOrder:[0,1,2],
+          explanation:`<p>Langkah-langkahnya: <span class="tr">The steps are:</span></p>
+            <ol>
+              <li>Hitung total umur sekarang. <span class="tr">Calculate current total age.</span></li>
+              <li>Cari selisih dengan target umur. <span class="tr">Find difference with target age.</span></li>
+              <li>Bagi selisih dengan jumlah orang. <span class="tr">Divide difference by number of people.</span></li>
+            </ol>`
+        },
+        { type:'task', pageTitle:'T10: Total Umur Sekarang', pageTitleEn:'Current Total Age', taskType:'fill',
+          question:'Berapa total umur mereka sekarang? (Ayah 37, Ibu 30, Saya 7) <span class="tr">What is their current total age?</span>',
+          correctAnswer:'74', acceptableAnswers:['74','tujuh puluh empat'],
+          explanation:`<p>Jumlahkan semua umur: <span class="tr">Add all ages:</span></p>
+            <p>$37 + 30 = 67$ <span class="tr">37 plus 30 equals 67</span></p>
+            <p>$67 + 7 = 74$ <span class="tr">67 plus 7 equals 74</span></p>`
+        }
+      ]
+    },
+    g: {
+      title: 'Consolidation & Reflection',
+      titleEn: 'Consolidation & Reflection',
+      time: '00:55 - 01:00',
+      pages: [
+        { type:'explanation', pageTitle:'E1: Poin Penting', pageTitleEn:'Key Takeaways',
+          body:`
+            <div class="illustration">
+              <svg width="220" height="80" viewBox="0 0 220 80">
+                <circle cx="40" cy="40" r="28" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+                <text x="40" y="48" text-anchor="middle" font-size="22" fill="#2563eb">★</text>
+                <text x="85" y="35" font-size="13" fill="#1e40af" font-weight="bold">Berhitung Dasar</text>
+                <text x="85" y="52" font-size="10" fill="#64748b">+, -, dan Bilangan</text>
+              </svg>
+              <div style="font-size:.82em;color:var(--muted);margin-top:4px">Simbol & Aturan <span class="tr">Symbols & Rules</span></div>
+            </div>
+            <p>Hari ini kita telah belajar banyak tentang bilangan dan operasi hitung dasar. Berikut adalah poin terpentingnya: <span class="tr">Today we learned a lot about numbers and basic arithmetic operations. Here are the most important points:</span></p>
+            <div class="math-block">
+              <ol>
+                <li><strong>Penjumlahan ($+$):</strong> Menggabungkan dua kelompok benda. <span class="tr">Addition: Combining two groups of objects.</span></li>
+                <li><strong>Pengurangan ($-$):</strong> Mengambil sebagian benda dari sekelompok benda. <span class="tr">Subtraction: Taking away some objects from a group.</span></li>
+                <li><strong>Pola Bilangan:</strong> Urutan angka dengan aturan tertentu (misal: loncat 2, loncat 5). <span class="tr">Number Patterns: Sequence of numbers with specific rules.</span></li>
+                <li><strong>Operasi Campuran:</strong> Dikerjakan dari kiri ke kanan. <span class="tr">Mixed Operations: Worked from left to right.</span></li>
+                <li><strong>Nilai Tempat:</strong> Puluhan dan Satuan (misal: $24 = 20 + 4$). <span class="tr">Place Value: Tens and Ones.</span></li>
+              </ol>
+            </div>
+            <div class="tip-box">
+              <h4>Tip <span class="tr">Tips</span></h4>
+              <ul>
+                <li>Selalu gunakan jari atau gambar jika kesulitan berhitung. <span class="tr">Always use fingers or drawings if you have trouble counting.</span></li>
+                <li>Baca soal cerita dengan pelan agar paham apa yang ditanya. <span class="tr">Read word problems slowly to understand what is asked.</span></li>
+              </ul>
+            </div>
+          `
+        },
+        { type:'task', pageTitle:'T1: Pertanyaan Refleksi', pageTitleEn:'Reflection Question', taskType:'truefalse',
+          question:'Benar atau salah: Saya sudah mengerti kapan harus memakai penjumlahan dan kapan harus memakai pengurangan. <span class="tr">True or false: I understand when to use addition and when to use subtraction.</span>',
+          correctAnswer:'true',
+          explanation:`<p>Jika kamu menjawab <strong>Benar (True)</strong>, kamu siap untuk mengerjakan latihan selanjutnya! <span class="tr">If you answered True, you are ready for the next exercises!</span></p>
+            <p>Jika <strong>Salah (False)</strong>, silakan tinjau kembali materi di Bagian A dan B. <span class="tr">If False, please review the materials in Sections A and B.</span></p>`
+        },
+        { type:'task', pageTitle:'T2: Exit Ticket', pageTitleEn:'Exit Ticket', taskType:'fill',
+          question:'Selesaikan soal ini untuk selesai kelas hari ini: $15 + 4 - 5 = \\dots$ <span class="tr">Solve this problem to finish class today: 15 plus 4 minus 5 equals...</span>',
+          correctAnswer:'14', acceptableAnswers:['14','empat belas'],
+          explanation:`<p>Langkah-langkah penyelesaian: <span class="tr">Step-by-step solution:</span></p>
+            <ol>
+              <li>Kerjakan penjumlahan dari kiri: $15 + 4 = 19$ <span class="tr">Do addition from left</span></li>
+              <li>Lalu kurangkan dengan 5: $19 - 5 = 14$ <span class="tr">Then subtract by 5</span></li>
+            </ol>`
+        },
+        { type:'explanation', pageTitle:'E2: Follow-up Practice', pageTitleEn:'Follow-up Practice',
+          body:`
+            <p>Latihan tambahan tersedia di <strong>Bagian H sampai L (Task 1 - 5)</strong>. Setiap bagian berisi 10 soal dengan berbagai tipe: <span class="tr">Additional practice is available in Sections H to L. Each section contains 10 questions of various types:</span></p>
+            <div class="math-block">
+              <ul>
+                <li><strong>Task 1 (H):</strong> Berhitung dasar dan bilangan <span class="tr">Basic counting and numbers</span></li>
+                <li><strong>Task 2 (I):</strong> Penjumlahan dan pengurangan > 10 <span class="tr">Addition and subtraction > 10</span></li>
+                <li><strong>Task 3 (J):</strong> Soal cerita sederhana <span class="tr">Simple word problems</span></li>
+                <li><strong>Task 4 (K):</strong> Pola bilangan dan bentuk geometri <span class="tr">Number patterns and geometry</span></li>
+                <li><strong>Task 5 (L):</strong> Operasi campuran dan logika <span class="tr">Mixed operations and logic</span></li>
+              </ul>
+            </div>
+            <div class="tip-box">
+              <h4>Cara mengerjakan <span class="tr">How to use</span></h4>
+              <ol>
+                <li>Buka bagian H-L dari sidebar sebelah kiri. <span class="tr">Open sections H-L from the left sidebar.</span></li>
+                <li>Jawab setiap pertanyaan, lalu klik <strong>"Check Answer"</strong>. <span class="tr">Answer each question, then click Check Answer.</span></li>
+                <li>Setelah selesai 10 soal, klik tombol <strong>🖨 Print to PDF</strong> di kanan atas. <span class="tr">After finishing 10 questions, click the Print to PDF button at the top right.</span></li>
+              </ol>
+            </div>
+            <div class="example-box">
+              <h4>Tips sukses <span class="tr">Tips for success</span></h4>
+              <ul>
+                <li>Kerjakan dengan tenang dan teliti. <span class="tr">Work calmly and carefully.</span></li>
+                <li>Jika bingung, kembali lihat pembahasan di Bagian C-F. <span class="tr">If confused, review explanations in Sections C-F.</span></li>
+              </ul>
+            </div>
+          `
+        }
+      ]
+    },
+    h: {
+      title: 'Task 1',
+      titleEn: 'Task 1',
+      time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Hitung Bintang', pageTitleEn:'Count Stars', taskType:'radio',
+          question:'Berapa jumlah bintang pada gambar? ⭐⭐⭐⭐⭐⭐ <span class="tr">How many stars are in the picture?</span>',
+          options:[
+            {text:'$5$ <span class="tr">Five</span>', correct:false},
+            {text:'$6$ <span class="tr">Six</span>', correct:true},
+            {text:'$7$ <span class="tr">Seven</span>', correct:false},
+            {text:'$8$ <span class="tr">Eight</span>', correct:false}
+          ],
+          explanation:`<p>Hitung bintangnya satu per satu: 1, 2, 3, 4, 5, 6. <span class="tr">Count the stars one by one: 1, 2, 3, 4, 5, 6.</span></p>
+            <p>Jadi, jumlahnya adalah $6$. <span class="tr">So, the total is 6.</span></p>`},
+        { type:'task', pageTitle:'T2: Jumlah Apel', pageTitleEn:'Total Apples', taskType:'fill',
+          question:'Hitung jumlah apel! 🍎🍎🍎🍎 + 🍎🍎 = ... <span class="tr">Count the apples! 4 plus 2 equals...</span>',
+          correctAnswer:'6', acceptableAnswers:['6','enam'],
+          explanation:`<p>Ada 4 apel, ditambah 2 apel. <span class="tr">There are 4 apples, plus 2 apples.</span></p>
+            <p>$4 + 2 = 6$. <span class="tr">4 plus 2 equals 6.</span></p>`},
+        { type:'task', pageTitle:'T3: Bilangan 11', pageTitleEn:'Number 11', taskType:'truefalse',
+          question:'Benar atau salah: $10 + 1 = 11$. <span class="tr">True or false: 10 plus 1 equals 11.</span>',
+          correctAnswer:'true',
+          explanation:`<p>10 benda ditambah 1 benda sama dengan 11 benda. <span class="tr">10 objects plus 1 object equals 11 objects.</span></p>
+            <p>Jawaban: <strong>Benar (True)</strong>. <span class="tr">Answer: True.</span></p>`},
+        { type:'task', pageTitle:'T4: Urutkan Bilangan', pageTitleEn:'Order Numbers', taskType:'sorting',
+          question:'Urutkan dari terkecil ke terbesar! <span class="tr">Order from smallest to largest!</span>',
+          items:['$8$','$3$','$5$','$1$'],
+          correctOrder:[3,1,2,0],
+          explanation:`<p>Mari kita urutkan: <span class="tr">Let's order them:</span></p>
+            <ol><li>$1$</li><li>$3$</li><li>$5$</li><li>$8$</li></ol>`},
+        { type:'task', pageTitle:'T5: Pasangkan Hasil', pageTitleEn:'Match Results', taskType:'pairing',
+          question:'Pasangkan penjumlahan dengan hasilnya! <span class="tr">Match the addition with the result!</span>',
+          pairs:[
+            {left:'$2 + 2$', right:'$4$'},
+            {left:'$3 + 1$', right:'$4$'},
+            {left:'$1 + 2$', right:'$3$'},
+            {left:'$5 + 0$', right:'$5$'}
+          ],
+          explanation:`<p>Hitung setiap penjumlahan: <span class="tr">Calculate each addition:</span></p>
+            <ul><li>$2 + 2 = 4$</li><li>$3 + 1 = 4$</li><li>$1 + 2 = 3$</li><li>$5 + 0 = 5$</li></ul>`},
+        { type:'task', pageTitle:'T6: Hasil 5', pageTitleEn:'Result 5', taskType:'checkbox',
+          question:'Pilih penjumlahan yang hasilnya 5! <span class="tr">Select the additions that result in 5!</span>',
+          options:[
+            {text:'$2 + 3$ <span class="tr">2 plus 3</span>', correct:true},
+            {text:'$1 + 4$ <span class="tr">1 plus 4</span>', correct:true},
+            {text:'$3 + 3$ <span class="tr">3 plus 3</span>', correct:false},
+            {text:'$2 + 2$ <span class="tr">2 plus 2</span>', correct:false}
+          ],
+          explanation:`<p>$2 + 3 = 5$ dan $1 + 4 = 5$. <span class="tr">2 plus 3 equals 5 and 1 plus 4 equals 5.</span></p>
+            <p>$3 + 3 = 6$ dan $2 + 2 = 4$. <span class="tr">3 plus 3 equals 6 and 2 plus 2 equals 4.</span></p>`},
+        { type:'task', pageTitle:'T7: Sisa Permen', pageTitleEn:'Remaining Candies', taskType:'fill',
+          question:'Ali punya 5 permen, 2 dimakan. Sisa permen Ali adalah ... <span class="tr">Ali has 5 candies, 2 are eaten. The remaining candies are...</span>',
+          correctAnswer:'3', acceptableAnswers:['3','tiga'],
+          explanation:`<p>$5 - 2 = 3$. <span class="tr">5 minus 2 equals 3.</span></p>`},
+        { type:'task', pageTitle:'T8: Bangun Datar', pageTitleEn:'Flat Shapes', taskType:'radio',
+          question:'Bangun yang tidak memiliki sudut adalah ... <span class="tr">The shape that has no corners is...</span>',
+          options:[
+            {text:'Segitiga <span class="tr">Triangle</span>', correct:false},
+            {text:'Lingkaran <span class="tr">Circle</span>', correct:true},
+            {text:'Persegi <span class="tr">Square</span>', correct:false},
+            {text:'Belah Ketupat <span class="tr">Rhombus</span>', correct:false}
+          ],
+          explanation:`<p>Lingkaran adalah bangun melingkar yang tidak memiliki sudut. <span class="tr">A circle is a round shape that has no corners.</span></p>`},
+        { type:'task', pageTitle:'T9: Cek Pengurangan', pageTitleEn:'Check Subtraction', taskType:'truefalse',
+          question:'Benar atau salah: $6 - 4 = 2$. <span class="tr">True or false: 6 minus 4 equals 2.</span>',
+          correctAnswer:'true',
+          explanation:`<p>Mari kita hitung: 6 kelereng dikurangi 4 kelereng sisa 2. <span class="tr">Let's calculate: 6 marbles minus 4 marbles leaves 2.</span></p>
+            <p>Jawaban: <strong>Benar (True)</strong>. <span class="tr">Answer: True.</span></p>`},
+        { type:'task', pageTitle:'T10: Urutkan Hasil Kurang', pageTitleEn:'Order Subtraction Results', taskType:'sorting',
+          question:'Urutkan hasil pengurangan dari terkecil ke terbesar! <span class="tr">Order the subtraction results from smallest to largest!</span>',
+          items:['$10 - 5 = 5$','$8 - 4 = 4$','$7 - 1 = 6$','$9 - 0 = 9$'],
+          correctOrder:[1,0,2,3],
+          explanation:`<p>Hasilnya: 4, 5, 6, 9. <span class="tr">The results are: 4, 5, 6, 9.</span></p>`}
+      ]
+    },
+    i: {
+      title: 'Task 2',
+      titleEn: 'Task 2',
+      time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Hitung Hasil', pageTitleEn:'Calculate Result', taskType:'fill',
+          question:'Hasil dari $8 + 5 = \\dots$ <span class="tr">The result of 8 plus 5 is...</span>',
+          correctAnswer:'13', acceptableAnswers:['13','tiga belas'],
+          explanation:`<p>Hitung maju dari 8 sebanyak 5 langkah: 9, 10, 11, 12, 13. <span class="tr">Count on from 8 for 5 steps: 9, 10, 11, 12, 13.</span></p>
+            <p>$8 + 5 = 13$. <span class="tr">8 plus 5 equals 13.</span></p>`},
+        { type:'task', pageTitle:'T2: Pengurangan 15', pageTitleEn:'Subtraction 15', taskType:'radio',
+          question:'Hasil dari $15 - 6$ adalah ... <span class="tr">The result of 15 minus 6 is...</span>',
+          options:[
+            {text:'$8$ <span class="tr">Eight</span>', correct:false},
+            {text:'$9$ <span class="tr">Nine</span>', correct:true},
+            {text:'$10$ <span class="tr">Ten</span>', correct:false},
+            {text:'$7$ <span class="tr">Seven</span>', correct:false}
+          ],
+          explanation:`<p>Hitung mundur dari 15 sebanyak 6 langkah: 14, 13, 12, 11, 10, 9. <span class="tr">Count back from 15 for 6 steps: 14, 13, 12, 11, 10, 9.</span></p>
+            <p>$15 - 6 = 9$. <span class="tr">15 minus 6 equals 9.</span></p>`},
+        { type:'task', pageTitle:'T3: Cek Hasil', pageTitleEn:'Check Result', taskType:'truefalse',
+          question:'Benar atau salah: $12 + 6 = 19$. <span class="tr">True or false: 12 plus 6 equals 19.</span>',
+          correctAnswer:'false',
+          explanation:`<p>Mari kita hitung: $12 + 6 = 18$. <span class="tr">Let's calculate: 12 plus 6 equals 18.</span></p>
+            <p>Hasilnya adalah $18$, bukan $19$. <span class="tr">The result is 18, not 19.</span></p>
+            <p>Jawaban: <strong>Salah (False)</strong>. <span class="tr">Answer: False.</span></p>`},
+        { type:'task', pageTitle:'T4: Pasangkan Operasi', pageTitleEn:'Match Operations', taskType:'pairing',
+          question:'Pasangkan operasi dengan hasil yang benar! <span class="tr">Match the operation with the correct result!</span>',
+          pairs:[
+            {left:'$7 + 4$', right:'$11$'},
+            {left:'$9 + 3$', right:'$12$'},
+            {left:'$15 - 5$', right:'$10$'},
+            {left:'$18 - 2$', right:'$16$'}
+          ],
+          explanation:`<p>Hitung masing-masing: <span class="tr">Calculate each:</span></p>
+            <ul><li>$7 + 4 = 11$</li><li>$9 + 3 = 12$</li><li>$15 - 5 = 10$</li><li>$18 - 2 = 16$</li></ul>`},
+        { type:'task', pageTitle:'T5: Hasil 12', pageTitleEn:'Result 12', taskType:'checkbox',
+          question:'Pilih penjumlahan yang hasilnya 12! <span class="tr">Select the additions that result in 12!</span>',
+          options:[
+            {text:'$7 + 5$ <span class="tr">7 plus 5</span>', correct:true},
+            {text:'$8 + 4$ <span class="tr">8 plus 4</span>', correct:true},
+            {text:'$6 + 5$ <span class="tr">6 plus 5</span>', correct:false},
+            {text:'$9 + 3$ <span class="tr">9 plus 3</span>', correct:true}
+          ],
+          explanation:`<p>$7 + 5 = 12$, $8 + 4 = 12$, dan $9 + 3 = 12$. <span class="tr">7 plus 5 equals 12, 8 plus 4 equals 12, and 9 plus 3 equals 12.</span></p>
+            <p>$6 + 5 = 11$ (Salah). <span class="tr">6 plus 5 equals 11 (False).</span></p>`},
+        { type:'task', pageTitle:'T6: Soal Cerita Kue', pageTitleEn:'Cookie Word Problem', taskType:'fill',
+          question:'Ibu membuat 14 kue, 4 dimakan ayah. Sisa kue adalah ... <span class="tr">Mother made 14 cookies, 4 are eaten by father. The remaining cookies are...</span>',
+          correctAnswer:'10', acceptableAnswers:['10','sepuluh'],
+          explanation:`<p>Kita kurangi jumlah kue yang dimakan dari total kue. <span class="tr">We subtract the number of cookies eaten from the total cookies.</span></p>
+            <p>$14 - 4 = 10$. <span class="tr">14 minus 4 equals 10.</span></p>`},
+        { type:'task', pageTitle:'T7: Urutkan Hasil', pageTitleEn:'Order Results', taskType:'sorting',
+          question:'Urutkan hasil dari terkecil ke terbesar! <span class="tr">Order the results from smallest to largest!</span>',
+          items:['$11 + 5 = 16$','$10 + 5 = 15$','$14 + 5 = 19$','$12 + 5 = 17$'],
+          correctOrder:[1,0,3,2],
+          explanation:`<p>Hasilnya: 15, 16, 17, 19. <span class="tr">The results are: 15, 16, 17, 19.</span></p>`},
+        { type:'task', pageTitle:'T8: Bilangan Loncat 2', pageTitleEn:'Skip Count by 2', taskType:'radio',
+          question:'Manakah pola bilangan loncat 2? <span class="tr">Which is a skip count by 2 pattern?</span>',
+          options:[
+            {text:'$1, 2, 3, 4$ <span class="tr">1, 2, 3, 4</span>', correct:false},
+            {text:'$2, 4, 6, 8$ <span class="tr">2, 4, 6, 8</span>', correct:true},
+            {text:'$5, 10, 15$ <span class="tr">5, 10, 15</span>', correct:false},
+            {text:'$1, 3, 1, 3$ <span class="tr">1, 3, 1, 3</span>', correct:false}
+          ],
+          explanation:`<p>Pola loncat 2 berarti setiap angka bertambah 2. <span class="tr">A skip count by 2 pattern means each number increases by 2.</span></p>
+            <p>$2, 4, 6, 8$ adalah pola loncat 2. <span class="tr">2, 4, 6, 8 is a skip count by 2 pattern.</span></p>`},
+        { type:'task', pageTitle:'T9: Cek Pola', pageTitleEn:'Check Pattern', taskType:'truefalse',
+          question:'Benar atau salah: Pola $5, 10, 15, 20$ adalah pola loncat 5. <span class="tr">True or false: The pattern 5, 10, 15, 20 is a skip count by 5 pattern.</span>',
+          correctAnswer:'true',
+          explanation:`<p>Setiap angka bertambah 5 dari angka sebelumnya. <span class="tr">Each number increases by 5 from the previous number.</span></p>
+            <p>Jawaban: <strong>Benar (True)</strong>. <span class="tr">Answer: True.</span></p>`},
+        { type:'task', pageTitle:'T10: Pecahan Bilangan', pageTitleEn:'Number Breakdown', taskType:'fill',
+          question:'Bentuk penjumlahan puluhan + satuan dari 24 adalah ... <span class="tr">The addition form of tens + ones for 24 is...</span>',
+          correctAnswer:'20 + 4', acceptableAnswers:['20+4','20 + 4'],
+          explanation:`<p>Angka 2 di tempat puluhan nilainya 20. <span class="tr">The digit 2 in the tens place is worth 20.</span></p>
+            <p>Angka 4 di tempat satuan nilainya 4. <span class="tr">The digit 4 in the ones place is worth 4.</span></p>
+            <p>Jadi, $24 = 20 + 4$. <span class="tr">So, 24 equals 20 plus 4.</span></p>`}
+      ]
+    },
+    j: {
+      title: 'Task 3',
+      titleEn: 'Task 3',
+      time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Jumlah Buah', pageTitleEn:'Total Fruits', taskType:'fill',
+          question:'Ali membeli 3 apel dan 3 jeruk. Total buah Ali adalah ... <span class="tr">Ali buys 3 apples and 3 oranges. Ali\'s total fruits are...</span>',
+          correctAnswer:'6', acceptableAnswers:['6','enam'],
+          explanation:`<p>Jumlahkan semua buah yang dibeli Ali. <span class="tr">Add up all the fruits Ali bought.</span></p>
+            <p>$3 + 3 = 6$. <span class="tr">3 plus 3 equals 6.</span></p>`},
+        { type:'task', pageTitle:'T2: Sisa Kue', pageTitleEn:'Remaining Cookies', taskType:'radio',
+          question:'Ada 10 kue di toples, 4 diambil oleh kakak. Sisa kue di toples adalah ... <span class="tr">There are 10 cookies in the jar, 4 are taken by brother. The remaining cookies in the jar are...</span>',
+          options:[
+            {text:'$5$ <span class="tr">Five</span>', correct:false},
+            {text:'$6$ <span class="tr">Six</span>', correct:true},
+            {text:'$7$ <span class="tr">Seven</span>', correct:false},
+            {text:'$8$ <span class="tr">Eight</span>', correct:false}
+          ],
+          explanation:`<p>Kurangi total kue dengan kue yang diambil. <span class="tr">Subtract the total cookies with the taken cookies.</span></p>
+            <p>$10 - 4 = 6$. <span class="tr">10 minus 4 equals 6.</span></p>`},
+        { type:'task', pageTitle:'T3: Operasi Campuran', pageTitleEn:'Mixed Operation', taskType:'truefalse',
+          question:'Benar atau salah: $5 + 2 - 1 = 6$. <span class="tr">True or false: 5 plus 2 minus 1 equals 6.</span>',
+          correctAnswer:'true',
+          explanation:`<p>Hitung dari kiri: $5 + 2 = 7$. <span class="tr">Calculate from left: 5 plus 2 equals 7.</span></p>
+            <p>Lalu $7 - 1 = 6$. <span class="tr">Then 7 minus 1 equals 6.</span></p>
+            <p>Jawaban: <strong>Benar (True)</strong>. <span class="tr">Answer: True.</span></p>`},
+        { type:'task', pageTitle:'T4: Urutkan Hasil', pageTitleEn:'Order Results', taskType:'sorting',
+          question:'Urutkan hasil dari terkecil ke terbesar! <span class="tr">Order the results from smallest to largest!</span>',
+          items:['$2 + 2 = 4$','$5 - 1 = 4$','$8 - 4 = 4$','$6 - 2 = 4$'],
+          correctOrder:[0,1,3,2],
+          explanation:`<p>Semua hasilnya adalah 4, jadi urutannya bebas asal konsisten. <span class="tr">All results are 4, so the order is free as long as it's consistent.</span></p>`},
+        { type:'task', pageTitle:'T5: Pasangkan Operasi', pageTitleEn:'Match Operations', taskType:'pairing',
+          question:'Pasangkan operasi dengan hasil yang benar! <span class="tr">Match the operation with the correct result!</span>',
+          pairs:[
+            {left:'$10 + 5$', right:'$15$'},
+            {left:'$15 - 5$', right:'$10$'},
+            {left:'$8 + 4$', right:'$12$'},
+            {left:'$12 - 4$', right:'$8$'}
+          ],
+          explanation:`<p>Hitung masing-masing: <span class="tr">Calculate each:</span></p>
+            <ul><li>$10 + 5 = 15$</li><li>$15 - 5 = 10$</li><li>$8 + 4 = 12$</li><li>$12 - 4 = 8$</li></ul>`},
+        { type:'task', pageTitle:'T6: Hasil 10', pageTitleEn:'Result 10', taskType:'checkbox',
+          question:'Pilih penjumlahan yang hasilnya 10! <span class="tr">Select the additions that result in 10!</span>',
+          options:[
+            {text:'$7 + 3$ <span class="tr">7 plus 3</span>', correct:true},
+            {text:'$6 + 4$ <span class="tr">6 plus 4</span>', correct:true},
+            {text:'$8 + 2$ <span class="tr">8 plus 2</span>', correct:true},
+            {text:'$5 + 4$ <span class="tr">5 plus 4</span>', correct:false}
+          ],
+          explanation:`<p>$7 + 3 = 10$, $6 + 4 = 10$, $8 + 2 = 10$. <span class="tr">7 plus 3 equals 10, 6 plus 4 equals 10, 8 plus 2 equals 10.</span></p>
+            <p>$5 + 4 = 9$ (Salah). <span class="tr">5 plus 4 equals 9 (False).</span></p>`},
+        { type:'task', pageTitle:'T7: Total Belanja', pageTitleEn:'Total Groceries', taskType:'fill',
+          question:'Ibu membeli 10 apel dan 5 jeruk. Total buah yang dibeli ibu adalah ... <span class="tr">Mother buys 10 apples and 5 oranges. The total fruits mother bought are...</span>',
+          correctAnswer:'15', acceptableAnswers:['15','lima belas'],
+          explanation:`<p>Jumlahkan semua buah. <span class="tr">Add up all the fruits.</span></p>
+            <p>$10 + 5 = 15$. <span class="tr">10 plus 5 equals 15.</span></p>`},
+        { type:'task', pageTitle:'T8: Bandingkan Bobot', pageTitleEn:'Compare Weight', taskType:'radio',
+          question:'Manakah yang lebih ringan? <span class="tr">Which is lighter?</span>',
+          options:[
+            {text:'🍉 Semangka <span class="tr">Watermelon</span>', correct:false},
+            {text:'🍏 Apel <span class="tr">Apple</span>', correct:true},
+            {text:'Sama berat <span class="tr">Same weight</span>', correct:false},
+            {text:'Tidak tahu <span class="tr">Don\'t know</span>', correct:false}
+          ],
+          explanation:`<p>Apel lebih kecil dari semangka, jadi apel lebih ringan. <span class="tr">An apple is smaller than a watermelon, so the apple is lighter.</span></p>`},
+        { type:'task', pageTitle:'T9: Sisi Bangun', pageTitleEn:'Shape Sides', taskType:'truefalse',
+          question:'Benar atau salah: Segitiga memiliki 4 sisi. <span class="tr">True or false: A triangle has 4 sides.</span>',
+          correctAnswer:'false',
+          explanation:`<p>Segitiga memiliki 3 sisi. <span class="tr">A triangle has 3 sides.</span></p>
+            <p>Jawaban: <strong>Salah (False)</strong>. <span class="tr">Answer: False.</span></p>`},
+        { type:'task', pageTitle:'T10: Lanjutan Pola', pageTitleEn:'Pattern Continuation', taskType:'fill',
+          question:'Lanjutkan pola berikut! $2, 4, 6, 8, \\dots$ <span class="tr">Continue the pattern!</span>',
+          correctAnswer:'10', acceptableAnswers:['10','sepuluh'],
+          explanation:`<p>Pola ini melompat 2 angka setiap kali. <span class="tr">This pattern skips 2 numbers each time.</span></p>
+            <p>$8 + 2 = 10$. <span class="tr">8 plus 2 equals 10.</span></p>`}
+      ]
+    },
+    k: {
+      title: 'Task 4',
+      titleEn: 'Task 4',
+      time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Pengurangan 20', pageTitleEn:'Subtraction 20', taskType:'fill',
+          question:'Hasil dari $20 - 5 = \\dots$ <span class="tr">The result of 20 minus 5 is...</span>',
+          correctAnswer:'15', acceptableAnswers:['15','lima belas'],
+          explanation:`<p>Hitung mundur dari 20 sebanyak 5 langkah: 19, 18, 17, 16, 15. <span class="tr">Count back from 20 for 5 steps: 19, 18, 17, 16, 15.</span></p>
+            <p>$20 - 5 = 15$. <span class="tr">20 minus 5 equals 15.</span></p>`},
+        { type:'task', pageTitle:'T2: Operasi Campuran', pageTitleEn:'Mixed Operation', taskType:'radio',
+          question:'Hasil dari $4 + 5 - 2 = \\dots$ <span class="tr">The result of 4 plus 5 minus 2 is...</span>',
+          options:[
+            {text:'$6$ <span class="tr">Six</span>', correct:false},
+            {text:'$7$ <span class="tr">Seven</span>', correct:true},
+            {text:'$8$ <span class="tr">Eight</span>', correct:false},
+            {text:'$9$ <span class="tr">Nine</span>', correct:false}
+          ],
+          explanation:`<p>Hitung dari kiri: $4 + 5 = 9$. <span class="tr">Calculate from left: 4 plus 5 equals 9.</span></p>
+            <p>Lalu $9 - 2 = 7$. <span class="tr">Then 9 minus 2 equals 7.</span></p>`},
+        { type:'task', pageTitle:'T3: Cek Penjumlahan', pageTitleEn:'Check Addition', taskType:'truefalse',
+          question:'Benar atau salah: $8 + 4 = 12$. <span class="tr">True or false: 8 plus 4 equals 12.</span>',
+          correctAnswer:'true',
+          explanation:`<p>Hitung maju dari 8 sebanyak 4 langkah: 9, 10, 11, 12. <span class="tr">Count on from 8 for 4 steps: 9, 10, 11, 12.</span></p>
+            <p>Jawaban: <strong>Benar (True)</strong>. <span class="tr">Answer: True.</span></p>`},
+        { type:'task', pageTitle:'T4: Urutkan Bilangan', pageTitleEn:'Order Numbers', taskType:'sorting',
+          question:'Urutkan dari terkecil ke terbesar! <span class="tr">Order from smallest to largest!</span>',
+          items:['$19$','$11$','$15$','$13$'],
+          correctOrder:[1,3,2,0],
+          explanation:`<p>Mari kita urutkan: <span class="tr">Let's order them:</span></p>
+            <ol><li>$11$</li><li>$13$</li><li>$15$</li><li>$19$</li></ol>`},
+        { type:'task', pageTitle:'T5: Pasangkan Bangun', pageTitleEn:'Match Shapes', taskType:'pairing',
+          question:'Pasangkan bangun dengan jumlah sisinya! <span class="tr">Match the shape with its number of sides!</span>',
+          pairs:[
+            {left:'Segitiga', right:'3 sisi'},
+            {left:'Persegi', right:'4 sisi'},
+            {left:'Lingkaran', right:'0 sisi'},
+            {left:'Segi Empat', right:'4 sisi'}
+          ],
+          explanation:`<p>Ingat sisi setiap bangun: <span class="tr">Remember the sides of each shape:</span></p>
+            <ul><li>Segitiga: 3 sisi</li><li>Persegi: 4 sisi</li><li>Lingkaran: 0 sisi (melengkung)</li></ul>`},
+        { type:'task', pageTitle:'T6: Hasil 5', pageTitleEn:'Result 5', taskType:'checkbox',
+          question:'Pilih pengurangan yang hasilnya 5! <span class="tr">Select the subtractions that result in 5!</span>',
+          options:[
+            {text:'$10 - 5$ <span class="tr">10 minus 5</span>', correct:true},
+            {text:'$8 - 3$ <span class="tr">8 minus 3</span>', correct:true},
+            {text:'$9 - 4$ <span class="tr">9 minus 4</span>', correct:true},
+            {text:'$7 - 1$ <span class="tr">7 minus 1</span>', correct:false}
+          ],
+          explanation:`<p>$10 - 5 = 5$, $8 - 3 = 5$, $9 - 4 = 5$. <span class="tr">10 minus 5 equals 5, 8 minus 3 equals 5, 9 minus 4 equals 5.</span></p>
+            <p>$7 - 1 = 6$ (Salah). <span class="tr">7 minus 1 equals 6 (False).</span></p>`},
+        { type:'task', pageTitle:'T7: Jumlahkan 3 Bilangan', pageTitleEn:'Add 3 Numbers', taskType:'fill',
+          question:'Hasil dari $2 + 2 + 2 = \\dots$ <span class="tr">The result of 2 plus 2 plus 2 is...</span>',
+          correctAnswer:'6', acceptableAnswers:['6','enam'],
+          explanation:`<p>Jumlahkan bertahap: <span class="tr">Add gradually:</span></p>
+            <p>$2 + 2 = 4$ <span class="tr">2 plus 2 equals 4</span></p>
+            <p>$4 + 2 = 6$ <span class="tr">4 plus 2 equals 6</span></p>`},
+        { type:'task', pageTitle:'T8: Nilai Tempat', pageTitleEn:'Place Value', taskType:'radio',
+          question:'Bentuk penjumlahan puluhan + satuan dari 19 adalah ... <span class="tr">The addition form of tens + ones for 19 is...</span>',
+          options:[
+            {text:'$1 + 9$ <span class="tr">1 plus 9</span>', correct:false},
+            {text:'$10 + 9$ <span class="tr">10 plus 9</span>', correct:true},
+            {text:'$19 + 0$ <span class="tr">19 plus 0</span>', correct:false},
+            {text:'$9 + 1$ <span class="tr">9 plus 1</span>', correct:false}
+          ],
+          explanation:`<p>Angka 1 di puluhan nilainya 10, angka 9 di satuan nilainya 9. <span class="tr">Digit 1 in tens is worth 10, digit 9 in ones is worth 9.</span></p>
+            <p>Jadi, $19 = 10 + 9$. <span class="tr">So, 19 equals 10 plus 9.</span></p>`},
+        { type:'task', pageTitle:'T9: Bandingkan Bilangan', pageTitleEn:'Compare Numbers', taskType:'truefalse',
+          question:'Benar atau salah: $17 > 15$. <span class="tr">True or false: 17 is greater than 15.</span>',
+          correctAnswer:'true',
+          explanation:`<p>17 ada di sebelah kanan 15 pada garis bilangan, jadi 17 lebih besar dari 15. <span class="tr">17 is to the right of 15 on the number line, so 17 is greater than 15.</span></p>
+            <p>Jawaban: <strong>Benar (True)</strong>. <span class="tr">Answer: True.</span></p>`},
+        { type:'task', pageTitle:'T10: Sisa Apel', pageTitleEn:'Remaining Apples', taskType:'fill',
+          question:'Ada 16 apel, 5 busuk dan dibuang. Sisa apel yang baik adalah ... <span class="tr">There are 16 apples, 5 are rotten and thrown away. The remaining good apples are...</span>',
+          correctAnswer:'11', acceptableAnswers:['11','sebelas'],
+          explanation:`<p>Kurangi total apel dengan apel yang dibuang. <span class="tr">Subtract the total apples with the thrown away apples.</span></p>
+            <p>$16 - 5 = 11$. <span class="tr">16 minus 5 equals 11.</span></p>`}
+      ]
+    },
+    l: {
+      title: 'Task 5',
+      titleEn: 'Task 5',
+      time: 'Printable',
+      pages: [
+        { type:'task', pageTitle:'T1: Operasi Campuran', pageTitleEn:'Mixed Operation', taskType:'fill',
+          question:'Hitung hasil dari $10 - 4 + 2 = \\dots$ <span class="tr">Calculate the result of 10 minus 4 plus 2</span>',
+          correctAnswer:'8', acceptableAnswers:['8','delapan'],
+          explanation:`<p>Kerjakan dari kiri ke kanan. <span class="tr">Work from left to right.</span></p>
+            <p>$10 - 4 = 6$ <span class="tr">10 minus 4 equals 6</span></p>
+            <p>$6 + 2 = 8$ <span class="tr">6 plus 2 equals 8</span></p>`},
+        { type:'task', pageTitle:'T2: Pola Loncat 5', pageTitleEn:'Skip Count by 5', taskType:'radio',
+          question:'Manakah pola bilangan loncat 5? <span class="tr">Which is a skip count by 5 pattern?</span>',
+          options:[
+            {text:'$2, 4, 6, 8$ <span class="tr">2, 4, 6, 8</span>', correct:false},
+            {text:'$5, 10, 15, 20$ <span class="tr">5, 10, 15, 20</span>', correct:true},
+            {text:'$1, 2, 3, 4$ <span class="tr">1, 2, 3, 4</span>', correct:false},
+            {text:'$10, 20, 30$ <span class="tr">10, 20, 30</span>', correct:false}
+          ],
+          explanation:`<p>Pola loncat 5 bertambah 5 setiap langkah. <span class="tr">A skip count by 5 pattern increases by 5 each step.</span></p>`},
+        { type:'task', pageTitle:'T3: Pengurangan Bertahap', pageTitleEn:'Step-by-Step Subtraction', taskType:'truefalse',
+          question:'Benar atau salah: $46 - 5 - 6 = 35$. <span class="tr">True or false: 46 minus 5 minus 6 equals 35.</span>',
+          correctAnswer:'true',
+          explanation:`<p>Hitung dari kiri: $46 - 5 = 41$. <span class="tr">Calculate from left: 46 minus 5 equals 41.</span></p>
+            <p>Lalu $41 - 6 = 35$. <span class="tr">Then 41 minus 6 equals 35.</span></p>
+            <p>Jawaban: <strong>Benar (True)</strong>. <span class="tr">Answer: True.</span></p>`},
+        { type:'task', pageTitle:'T4: Urutkan Bilangan', pageTitleEn:'Order Numbers', taskType:'sorting',
+          question:'Urutkan dari terbesar ke terkecil! <span class="tr">Order from largest to smallest!</span>',
+          items:['$10$','$20$','$5$','$15$'],
+          correctOrder:[1,3,0,2],
+          explanation:`<p>Mari kita urutkan dari terbesar: <span class="tr">Let's order from largest:</span></p>
+            <ol><li>$20$</li><li>$15$</li><li>$10$</li><li>$5$</li></ol>`},
+        { type:'task', pageTitle:'T5: Pasangkan Hasil', pageTitleEn:'Match Results', taskType:'pairing',
+          question:'Pasangkan operasi dengan hasil yang benar! <span class="tr">Match the operation with the correct result!</span>',
+          pairs:[
+            {left:'$5 + 5 - 2$', right:'$8$'},
+            {left:'$10 - 3 + 1$', right:'$8$'},
+            {left:'$6 + 4 - 2$', right:'$8$'},
+            {left:'$9 - 1 + 0$', right:'$8$'}
+          ],
+          explanation:`<p>Semua operasi di atas jika dihitung dari kiri ke kanan hasilnya adalah 8. <span class="tr">All operations above result in 8 when calculated from left to right.</span></p>`},
+        { type:'task', pageTitle:'T6: Hasil 10', pageTitleEn:'Result 10', taskType:'checkbox',
+          question:'Pilih persamaan yang hasilnya 10! <span class="tr">Select the equations that result in 10!</span>',
+          options:[
+            {text:'$5 + 5$ <span class="tr">5 plus 5</span>', correct:true},
+            {text:'$15 - 5$ <span class="tr">15 minus 5</span>', correct:true},
+            {text:'$12 - 2$ <span class="tr">12 minus 2</span>', correct:true},
+            {text:'$8 + 3$ <span class="tr">8 plus 3</span>', correct:false}
+          ],
+          explanation:`<p>$5 + 5 = 10$, $15 - 5 = 10$, $12 - 2 = 10$. <span class="tr">5 plus 5 equals 10, 15 minus 5 equals 10, 12 minus 2 equals 10.</span></p>
+            <p>$8 + 3 = 11$ (Salah). <span class="tr">8 plus 3 equals 11 (False).</span></p>`},
+        { type:'task', pageTitle:'T7: Total Umur', pageTitleEn:'Total Age', taskType:'fill',
+          question:'Ayah 37 tahun, Ibu 30 tahun, Saya 7 tahun. Total umur kami adalah ... <span class="tr">Father 37 years, Mother 30 years, Me 7 years. Our total age is...</span>',
+          correctAnswer:'74', acceptableAnswers:['74','tujuh puluh empat'],
+          explanation:`<p>Jumlahkan semua umur: <span class="tr">Add all ages:</span></p>
+            <p>$37 + 30 = 67$ <span class="tr">37 plus 30 equals 67</span></p>
+            <p>$67 + 7 = 74$ <span class="tr">67 plus 7 equals 74</span></p>`},
+        { type:'task', pageTitle:'T8: Sisi Bangun', pageTitleEn:'Shape Sides', taskType:'radio',
+          question:'Bangun segi empat memiliki jumlah sisi sebanyak ... <span class="tr">A quadrilateral shape has the number of sides of...</span>',
+          options:[
+            {text:'$3$ <span class="tr">Three</span>', correct:false},
+            {text:'$4$ <span class="tr">Four</span>', correct:true},
+            {text:'$5$ <span class="tr">Five</span>', correct:false},
+            {text:'$0$ <span class="tr">Zero</span>', correct:false}
+          ],
+          explanation:`<p>Kata "segi empat" berarti memiliki 4 sisi. <span class="tr">The word "quadrilateral" means it has 4 sides.</span></p>`},
+        { type:'task', pageTitle:'T9: Pecahan Bilangan', pageTitleEn:'Number Breakdown', taskType:'truefalse',
+          question:'Benar atau salah: $189 = 100 + 80 + 9$. <span class="tr">True or false: 189 equals 100 plus 80 plus 9.</span>',
+          correctAnswer:'true',
+          explanation:`<p>1 ratusan = 100, 8 puluhan = 80, 9 satuan = 9. <span class="tr">1 hundred = 100, 8 tens = 80, 9 ones = 9.</span></p>
+            <p>Jawaban: <strong>Benar (True)</strong>. <span class="tr">Answer: True.</span></p>`},
+        { type:'task', pageTitle:'T10: Membagi Sama Rata', pageTitleEn:'Sharing Equally', taskType:'fill',
+          question:'Ada 6 permen dibagi rata ke 2 anak. Setiap anak mendapat ... permen. <span class="tr">There are 6 candies divided equally to 2 kids. Each kid gets... candies.</span>',
+          correctAnswer:'3', acceptableAnswers:['3','tiga'],
+          explanation:`<p>Bagi 6 permen ke 2 anak: $6 \\div 2 = 3$. <span class="tr">Divide 6 candies to 2 kids: 6 divided by 2 equals 3.</span></p>`}
+      ]
+    }
+  };
+
+  // ================= STATE =================
+  let currentSection = 'a';
+  let currentPage = 0;
+  let userAnswers = {};
+
+  // ================= UTILITIES =================
+  function shuffle(arr){
+    const a = arr.slice();
+    for(let i = a.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+  function renderMath(el){
+    if(window.renderMathInElement){
+      renderMathInElement(el, {
+        delimiters: [
+          {left:'$$', right:'$$', display:true},
+          {left:'$', right:'$', display:false}
+        ],
+        throwOnError: false
+      });
+    }
+  }
+
+  // ================= SIDEBAR =================
+  function renderSidebar(){
+    const sidebar = document.getElementById('sidebar');
+    const sectionKeys = ['a','b','c','d','e','f','g','h','i','j','k','l'];
+    const meta = {
+      a:{t:'Spiral Review Warm-up', e:'Spiral Review Warm-up', time:'00:00-00:10'},
+      b:{t:'Intro & Real-World', e:'Intro & Real-World', time:'00:10-00:15'},
+      c:{t:'Review of Prior Knowledge', e:'Review of Prior Knowledge', time:'00:15-00:20'},
+      d:{t:'Problem Introduction', e:'Problem Introduction', time:'00:20-00:30'},
+      e:{t:'Guided Practice', e:'Guided Practice', time:'00:30-00:45'},
+      f:{t:'Independent Practice', e:'Independent Practice', time:'00:45-00:55'},
+      g:{t:'Consolidation & Reflection', e:'Consolidation & Reflection', time:'00:55-01:00'},
+      h:{t:'Task 1', e:'Task 1', time:'Printable'},
+      i:{t:'Task 2', e:'Task 2', time:'Printable'},
+      j:{t:'Task 3', e:'Task 3', time:'Printable'},
+      k:{t:'Task 4', e:'Task 4', time:'Printable'},
+      l:{t:'Task 5', e:'Task 5', time:'Printable'}
+    };
+    let html = '<h3>Sections <span class="tr">Bagian</span></h3>';
+    sectionKeys.forEach(key => {
+      const section = sectionsData[key];
+      const isActive = currentSection === key;
+      if(section){
+        html += `<div class="nav-link ${isActive?'active':''}" data-section="${key}">
+          <span class="nl-title">${key.toUpperCase()}. ${meta[key].t}</span>
+          <span class="tr">${meta[key].e}</span>
+          <span class="time">${meta[key].time}</span>
+        </div>`;
+      } else {
+        html += `<div class="nav-link disabled">${key.toUpperCase()}. ${meta[key].t}<br><span class="tr">${meta[key].e}</span><br><span class="time">${meta[key].time} (segera)</span></div>`;
+      }
+    });
+    sidebar.innerHTML = html;
+    sidebar.querySelectorAll('.nav-link[data-section]').forEach(el => {
+      el.addEventListener('click', () => {
+        currentSection = el.dataset.section;
+        currentPage = 0;
+        renderSidebar();
+        renderPage();
+      });
+    });
+  }
+
+  // ================= PAGE RENDER =================
+  function renderPage(){
+    const section = sectionsData[currentSection];
+    if(!section) return;
+    const page = section.pages[currentPage];
+    const contentEl = document.getElementById('pageContent');
+
+    let printBtnHtml = '';
+    if(['h','i','j','k','l'].includes(currentSection)){
+      printBtnHtml = '<button id="printBtnTop" style="background:var(--success);color:#fff;border:none;padding:7px 14px;border-radius:6px;cursor:pointer;font-size:.8em;font-weight:600;white-space:nowrap">🖨 Print to PDF <span class="tr">Cetak ke PDF</span></button>';
+    }
+
+    let html = '<div class="page-header"><h2>' + section.title + ' <span class="tr">' + section.titleEn + '</span></h2><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">' + printBtnHtml + '<span class="badge">' + page.pageTitle.split(':')[0] + '</span></div></div>';
+
+    if(page.type === 'explanation'){
+      html += '<div class="card explain"><h3>' + page.pageTitle + ' <span class="tr">' + page.pageTitleEn + '</span></h3>' + page.body + '</div>';
+    } else if(page.type === 'task'){
+      html += renderTask(page);
+    }
+    contentEl.innerHTML = html;
+    renderMath(contentEl);
+
+    const total = section.pages.length;
+    const pageNumsEl = document.getElementById('pageNums');
+    let pageNumHtml = '';
+    section.pages.forEach(function(p, i){
+      var raw = p.pageTitle.split(':')[0].trim();
+      var type = raw.charAt(0);
+      var num = parseInt(raw.substring(1));
+      var label = type + '-' + String(num).padStart(2, '0');
+      var typeClass = (type === 'E') ? 'page-num-e' : 'page-num-t';
+      var isActive = (i === currentPage);
+      pageNumHtml += '<button class="page-num ' + typeClass + ' ' + (isActive ? 'active' : '') + '" data-page="' + i + '"' + (isActive ? ' disabled' : '') + '>' + label + '</button>';
+    });
+    pageNumsEl.innerHTML = pageNumHtml;
+
+    pageNumsEl.querySelectorAll('.page-num').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        currentPage = parseInt(btn.dataset.page);
+        renderPage();
+      });
+    });
+
+    document.getElementById('prevBtn').disabled = (currentPage === 0);
+    document.getElementById('nextBtn').disabled = (currentPage === total - 1);
+
+    var printBtnTop = document.getElementById('printBtnTop');
+    if(printBtnTop){
+      printBtnTop.addEventListener('click', function(){ printTask(currentSection); });
+    }
+
+    if(page.type === 'task'){
+      attachTaskHandlers(page);
+    }
+  }
+
+  function renderTask(page){
+    let html = `<div class="card task"><h3>${page.pageTitle} <span class="tr">${page.pageTitleEn}</span></h3>`;
+    html += `<div class="q-text">${page.question}</div>`;
+
+    if(page.taskType === 'radio' || page.taskType === 'checkbox'){
+      const options = shuffle(page.options);
+      page._shuffledOptions = options;
+      html += '<div class="options">';
+      options.forEach((opt, i) => {
+        const cls = page.taskType === 'checkbox' ? 'option checkbox' : 'option radio';
+        html += `<div class="${cls}" data-idx="${i}">
+          <div class="marker"></div>
+          <div class="opt-text">${opt.text}</div>
+        </div>`;
+      });
+      html += '</div>';
+    } else if(page.taskType === 'fill'){
+      html += `<input type="text" class="fill-input" id="fillInput" placeholder="...">`;
+    } else if(page.taskType === 'truefalse'){
+      const opts = shuffle([
+        {text:'True <span class="tr">Benar</span>', val:'true'},
+        {text:'False <span class="tr">Salah</span>', val:'false'}
+      ]);
+      page._shuffledTF = opts;
+      html += '<div class="options">';
+      opts.forEach((o, i) => {
+        html += `<div class="option radio" data-val="${o.val}" data-idx="${i}"><div class="marker"></div><div class="opt-text">${o.text}</div></div>`;
+      });
+      html += '</div>';
+    } else if(page.taskType === 'sorting'){
+      const shuffled = shuffle(page.items.map((item, idx) => ({text:item, originalIdx:idx})));
+      page._shuffledItems = shuffled;
+      html += '<div class="sort-list">';
+      shuffled.forEach((it, i) => {
+        html += `<div class="sort-item" data-pos="${i}" data-orig="${it.originalIdx}">
+          <span class="pos">${i+1}</span>
+          <span class="sort-text">${it.text}</span>
+        </div>`;
+      });
+      html += '</div>';
+      html += '<p style="font-size:.82em;color:var(--muted);margin-top:6px">Click two items to swap. <span class="tr">Klik dua item untuk menukar.</span></p>';
+    } else if(page.taskType === 'pairing'){
+      const lefts = shuffle(page.pairs.map((p, idx) => ({text:p.left, originalIdx:idx})));
+      const rights = shuffle(page.pairs.map((p, idx) => ({text:p.right, originalIdx:idx})));
+      page._shuffledPairs = {lefts, rights};
+      html += '<div class="pair-grid">';
+      html += '<div class="pair-col"><h4>Left <span class="tr">Kiri</span></h4>';
+      lefts.forEach((l, i) => {
+        html += `<div class="pair-item" data-side="left" data-idx="${i}">${l.text}</div>`;
+      });
+      html += '</div>';
+      html += '<div class="pair-col"><h4>Right <span class="tr">Kanan</span></h4>';
+      rights.forEach((r, i) => {
+        html += `<div class="pair-item" data-side="right" data-idx="${i}">${r.text}</div>`;
+      });
+      html += '</div></div>';
+      html += '<div class="pairs-list" id="pairsList"></div>';
+      html += '<p style="font-size:.82em;color:var(--muted);margin-top:6px">Click left then right to pair. <span class="tr">Klik kiri lalu kanan untuk memasangkan.</span></p>';
+    }
+    html += `<button class="btn-submit" id="submitBtn">Check Answer <span class="tr">Periksa Jawaban</span></button>`;
+    html += `<div class="feedback" id="feedback"></div></div>`;
+    return html;
+  }
+
+  function attachTaskHandlers(page){
+    const taskType = page.taskType;
+
+    if(taskType === 'radio' || taskType === 'truefalse'){
+      document.querySelectorAll('.option').forEach(opt => {
+        opt.addEventListener('click', () => {
+          document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+          opt.classList.add('selected');
+        });
+      });
+    } else if(taskType === 'checkbox'){
+      document.querySelectorAll('.option').forEach(opt => {
+        opt.addEventListener('click', () => opt.classList.toggle('selected'));
+      });
+    } else if(taskType === 'sorting'){
+      let firstClick = null;
+      document.querySelectorAll('.sort-item').forEach(item => {
+        item.addEventListener('click', () => {
+          if(firstClick === null){
+            firstClick = item;
+            item.classList.add('selected');
+          } else if(firstClick === item){
+            item.classList.remove('selected');
+            firstClick = null;
+          } else {
+            const fText = firstClick.querySelector('.sort-text').innerHTML;
+            const sText = item.querySelector('.sort-text').innerHTML;
+            firstClick.querySelector('.sort-text').innerHTML = sText;
+            item.querySelector('.sort-text').innerHTML = fText;
+            const fOrig = firstClick.dataset.orig;
+            firstClick.dataset.orig = item.dataset.orig;
+            item.dataset.orig = fOrig;
+            firstClick.classList.remove('selected');
+            firstClick = null;
+          }
+        });
+      });
+    } else if(taskType === 'pairing'){
+      let selectedLeft = null;
+      document.querySelectorAll('.pair-item[data-side="left"]').forEach(item => {
+        item.addEventListener('click', () => {
+          if(item.classList.contains('paired')) return;
+          document.querySelectorAll('.pair-item[data-side="left"]').forEach(i => i.classList.remove('selected'));
+          item.classList.add('selected');
+          selectedLeft = item;
+        });
+      });
+      document.querySelectorAll('.pair-item[data-side="right"]').forEach(item => {
+        item.addEventListener('click', () => {
+          if(item.classList.contains('paired') || !selectedLeft) return;
+          const leftIdx = selectedLeft.dataset.idx;
+          const rightIdx = item.dataset.idx;
+          const pairList = document.getElementById('pairsList');
+          const pairRow = document.createElement('div');
+          pairRow.className = 'pair-row';
+          pairRow.dataset.leftIdx = leftIdx;
+          pairRow.dataset.rightIdx = rightIdx;
+          pairRow.innerHTML = `<span>${selectedLeft.innerHTML}</span> <span>↔</span> <span>${item.innerHTML}</span> <span class="remove" title="Remove">×</span>`;
+          pairRow.querySelector('.remove').addEventListener('click', function() {
+            const lIdx = pairRow.dataset.leftIdx;
+            const rIdx = pairRow.dataset.rightIdx;
+            const lItem = document.querySelector(`.pair-item[data-side="left"][data-idx="${lIdx}"]`);
+            const rItem = document.querySelector(`.pair-item[data-side="right"][data-idx="${rIdx}"]`);
+            if(lItem) lItem.classList.remove('paired');
+            if(rItem) rItem.classList.remove('paired');
+            pairRow.remove();
+          });
+          pairList.appendChild(pairRow);
+          selectedLeft.classList.remove('selected');
+          selectedLeft.classList.add('paired');
+          item.classList.add('paired');
+          selectedLeft = null;
+        });
+      });
+    }
+
+    document.getElementById('submitBtn').addEventListener('click', () => checkAnswer(page));
+  }
+
+  function checkAnswer(page){
+    const taskType = page.taskType;
+    let isCorrect = false;
+    let userAnswerStr = '';
+
+    if(taskType === 'radio'){
+      let selected = null, selectedIdx = -1;
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        if(opt.classList.contains('selected')){
+          selected = page._shuffledOptions[i];
+          selectedIdx = i;
+        }
+      });
+      if(!selected){
+        showFeedback(false, 'Please select an answer. <span class="tr">Silakan pilih jawaban.</span>', false);
+        return;
+      }
+      isCorrect = selected.correct;
+      userAnswerStr = selected.text;
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        opt.classList.remove('selected');
+        if(page._shuffledOptions[i].correct) opt.classList.add('correct');
+        else if(i === selectedIdx && !selected.correct) opt.classList.add('incorrect');
+      });
+    } else if(taskType === 'checkbox'){
+      const selectedIdxs = [];
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        if(opt.classList.contains('selected')) selectedIdxs.push(i);
+      });
+      if(selectedIdxs.length === 0){
+        showFeedback(false, 'Please select an answer. <span class="tr">Silakan pilih jawaban.</span>', false);
+        return;
+      }
+      const correctSet = new Set();
+      page._shuffledOptions.forEach((opt, i) => { if(opt.correct) correctSet.add(i); });
+      const selectedSet = new Set(selectedIdxs);
+      isCorrect = correctSet.size === selectedSet.size && [...correctSet].every(i => selectedSet.has(i));
+      userAnswerStr = selectedIdxs.map(i => page._shuffledOptions[i].text).join(', ');
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        opt.classList.remove('selected');
+        if(page._shuffledOptions[i].correct) opt.classList.add('correct');
+        else if(selectedSet.has(i)) opt.classList.add('incorrect');
+      });
+    } else if(taskType === 'fill'){
+      const val = document.getElementById('fillInput').value.trim();
+      const acceptable = page.acceptableAnswers || [page.correctAnswer];
+      const norm = s => s.toLowerCase().replace(/\s+/g, '').trim();
+      isCorrect = acceptable.some(a => norm(a) === norm(val));
+      userAnswerStr = val;
+    } else if(taskType === 'truefalse'){
+      let selectedVal = null, selectedIdx = -1;
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        if(opt.classList.contains('selected')){
+          selectedVal = opt.dataset.val;
+          selectedIdx = i;
+        }
+      });
+      if(!selectedVal){
+        showFeedback(false, 'Please select an answer. <span class="tr">Silakan pilih jawaban.</span>', false);
+        return;
+      }
+      isCorrect = selectedVal === page.correctAnswer;
+      userAnswerStr = selectedVal === 'true' ? 'True' : 'False';
+      document.querySelectorAll('.option').forEach((opt, i) => {
+        opt.classList.remove('selected');
+        if(opt.dataset.val === page.correctAnswer) opt.classList.add('correct');
+        else if(i === selectedIdx) opt.classList.add('incorrect');
+      });
+    } else if(taskType === 'sorting'){
+      const currentOrder = [];
+      document.querySelectorAll('.sort-item').forEach(item => {
+        currentOrder.push(parseInt(item.dataset.orig));
+      });
+      isCorrect = currentOrder.every((idx, i) => idx === page.correctOrder[i]);
+      userAnswerStr = currentOrder.map((idx, i) => `${i+1}. ${page.items[idx] || '?'}`).join('  |  ');
+      document.querySelectorAll('.sort-item').forEach((item, i) => {
+        if(currentOrder[i] === page.correctOrder[i]) item.style.borderColor = 'var(--success)';
+        else item.style.borderColor = 'var(--danger)';
+      });
+    } else if(taskType === 'pairing'){
+      const pairRows = document.querySelectorAll('.pair-row');
+      if(pairRows.length === 0){
+        showFeedback(false, 'Please make pairs. <span class="tr">Silakan buat pasangan.</span>', false);
+        return;
+      }
+      const userPairs = [];
+      pairRows.forEach(row => {
+        const lIdx = parseInt(row.dataset.leftIdx);
+        const rIdx = parseInt(row.dataset.rightIdx);
+        userPairs.push({
+          leftText: page._shuffledPairs.lefts[lIdx].text,
+          rightText: page._shuffledPairs.rights[rIdx].text
+        });
+      });
+      const correctPairs = page.pairs.map(p => ({left:p.left, right:p.right}));
+      const correctCount = userPairs.filter(up =>
+        correctPairs.some(cp => cp.left === up.leftText && cp.right === up.rightText)
+      ).length;
+      isCorrect = correctCount === correctPairs.length && userPairs.length === correctPairs.length;
+      userAnswerStr = userPairs.map(p => `${p.leftText}↔${p.rightText}`).join('  |  ');
+      pairRows.forEach(row => {
+        const lIdx = parseInt(row.dataset.leftIdx);
+        const rIdx = parseInt(row.dataset.rightIdx);
+        const lText = page._shuffledPairs.lefts[lIdx].text;
+        const rText = page._shuffledPairs.rights[rIdx].text;
+        const ok = correctPairs.some(cp => cp.left === lText && cp.right === rText);
+        row.style.background = ok ? '#d1fae5' : '#fee2e2';
+      });
+    }
+
+    const pageKey = `${currentSection}-${currentPage}`;
+    userAnswers[pageKey] = {userAnswer:userAnswerStr, correct:isCorrect, pageTitle:page.pageTitle};
+    showFeedback(isCorrect, page.explanation, true);
+  }
+
+  function showFeedback(isCorrect, explanation, showAnswer){
+    const feedback = document.getElementById('feedback');
+    feedback.className = `feedback show ${isCorrect?'correct':'incorrect'}`;
+    if(showAnswer){
+      feedback.innerHTML = `<h4>${isCorrect?'✓ Correct!':'✗ Incorrect'} <span class="tr">${isCorrect?'Benar!':'Salah'}</span></h4>${explanation}`;
+    } else {
+      feedback.innerHTML = `<h4>${isCorrect?'✓ Correct!':'✗ Incorrect'}</h4>`;
+    }
+    renderMath(feedback);
+  }
+
+  // ================= EVENT LISTENERS =================
+  document.getElementById('prevBtn').addEventListener('click', () => {
+    if(currentPage > 0){ currentPage--; renderPage(); }
+  });
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    const total = sectionsData[currentSection].pages.length;
+    if(currentPage < total - 1){ currentPage++; renderPage(); }
+  });
+
+  const modal = document.getElementById('classRulesModal');
+  document.getElementById('classRulesBtn').addEventListener('click', () => modal.classList.add('active'));
+  document.querySelector('.modal-close').addEventListener('click', () => modal.classList.remove('active'));
+  modal.addEventListener('click', (e) => { if(e.target === modal) modal.classList.remove('active'); });
+
+  // ================= PRINT TO PDF =================
+  function getCorrectAnswer(task){
+    if(task.taskType === 'radio'){
+      const c = task.options.find(o => o.correct);
+      return c ? c.text : '';
+    }
+    if(task.taskType === 'checkbox'){
+      return task.options.filter(o => o.correct).map(o => o.text).join(', ');
+    }
+    if(task.taskType === 'fill'){
+      return task.correctAnswer || '';
+    }
+    if(task.taskType === 'truefalse'){
+      return task.correctAnswer === 'true' ? 'True' : 'False';
+    }
+    if(task.taskType === 'sorting'){
+      return task.correctOrder.map(i => task.items[i]).join(' → ');
+    }
+    if(task.taskType === 'pairing'){
+      return task.pairs.map(p => p.left + ' ↔ ' + p.right).join('; ');
+    }
+    return '';
+  }
+
+  function printTask(sectionKey){
+    const section = sectionsData[sectionKey];
+    if(!section) return;
+    const tasks = section.pages;
+    let correctCount = 0;
+
+    const rows = tasks.map((task, idx) => {
+      const pageKey = sectionKey + '-' + idx;
+      const ua = userAnswers[pageKey];
+      const isCorrect = ua ? ua.correct : false;
+      const userAns = ua ? ua.userAnswer : '(not answered)';
+      const correctAns = getCorrectAnswer(task);
+      if(ua && ua.correct) correctCount++;
+      return '<tr><td>' + (idx+1) + '</td><td>' + task.question + '</td><td>' + userAns + '</td><td>' + correctAns + '</td><td style="text-align:center;font-size:1.1em">' + (isCorrect ? '✓' : '✗') + '</td></tr>';
+    }).join('');
+
+    const score = correctCount + ' / ' + tasks.length;
+    const today = new Date().toLocaleDateString('en-US', {day:'numeric',month:'long',year:'numeric'});
+
+    const html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Print - ' + section.title + '</title>' +
+      '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">' +
+      '<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"><\/script>' +
+      '<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"><\/script>' +
+      '<style>' +
+      'body{font-family:Segoe UI,sans-serif;padding:30px;color:#1e293b;line-height:1.5}' +
+      'h1{font-size:1.2em;margin-bottom:5px}' +
+      '.info{margin-bottom:15px;font-size:.88em}' +
+      '.info div{margin:3px 0}' +
+      'table{width:100%;border-collapse:collapse;margin:15px 0;font-size:.82em}' +
+      'th,td{border:1px solid #cbd5e1;padding:6px 8px;text-align:left;vertical-align:top}' +
+      'th{background:#f1f5f9;font-weight:600}' +
+      '.checked-by{margin-top:30px;text-align:right;font-style:italic}' +
+      '.tr{font-style:italic;font-size:.85em;color:#64748b}' +
+      '@media print{body{padding:15px}}' +
+      '</style></head><body>' +
+      '<h1>Math Tutoring by Deni</h1>' +
+      '<div class="info">' +
+      '<div>Name: ____________________________ <span class="tr">Nama</span></div>' +
+      '<div>Date: ' + today + ' <span class="tr">Tanggal</span></div>' +
+      '<div>Topic: Numbers and Basic Arithmetic Operations <span class="tr">Topik: Bilangan dan Operasi Hitung Dasar</span></div>' +
+      '<div>Task Group: ' + section.title + ' <span class="tr">Grup Task</span></div>' +
+      '<div>Score: <strong>' + score + '</strong> <span class="tr">Skor</span></div>' +
+      '</div>' +
+      '<table><thead><tr>' +
+      '<th style="width:30px">No.</th>' +
+      '<th>Question <span class="tr">Pertanyaan</span></th>' +
+      '<th>Student Answer <span class="tr">Jawaban Siswa</span></th>' +
+      '<th>Correct Answer <span class="tr">Jawaban Benar</span></th>' +
+      '<th style="width:50px">Note <span class="tr">Ket.</span></th>' +
+      '</tr></thead><tbody>' + rows + '</tbody></table>' +
+      '<div class="checked-by">Checked by,<br>Deni</div>' +
+      '<script>document.addEventListener("DOMContentLoaded",function(){' +
+      'if(window.renderMathInElement){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false});}' +
+      'setTimeout(function(){window.print();},500);});<\/script>' +
+      '</body></html>';
+
+    const w = window.open('', '_blank');
+    if(w){
+      w.document.write(html);
+      w.document.close();
+    } else {
+      alert('Please allow pop-ups to print. <span class="tr">Mohon izinkan pop-up untuk mencetak.</span>');
+    }
+  }
+
+  // ================= INIT =================
+  renderSidebar();
+  renderPage();
+});
+</script>
+</body>
+</html>
