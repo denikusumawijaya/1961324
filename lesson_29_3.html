@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Latihan KMSI Level 1 Paket 3</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ungu:#5b21b6; --ungu2:#7c3aed; --ungu-muda:#ede9fe; --oranye:#f97316;
+  --hijau:#16a34a; --hijau-muda:#dcfce7; --merah:#dc2626; --merah-muda:#fee2e2;
+  --abu:#64748b; --bg:#f5f3ff; --kartu:#ffffff; --teks:#1e1b4b;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Nunito',sans-serif;background:var(--bg);color:var(--teks);line-height:1.5}
+header{background:linear-gradient(135deg,#4c1d95,#7c3aed);color:#fff;padding:28px 16px 64px;text-align:center}
+header .badge{display:inline-block;background:var(--oranye);font-family:'Baloo 2';font-weight:800;padding:4px 18px;border-radius:10px;transform:skew(-8deg);letter-spacing:1px}
+header h1{font-family:'Baloo 2';font-size:clamp(24px,5vw,36px);margin:10px 0 4px}
+header p{margin:0;opacity:.9}
+.wrap{max-width:820px;margin:-44px auto 40px;padding:0 16px}
+.panel{background:var(--kartu);border-radius:18px;box-shadow:0 6px 24px rgba(76,29,149,.12);padding:18px 20px;margin-bottom:16px}
+.info{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center}
+.info .rules{font-size:14px;color:var(--abu)}
+.rules b{color:var(--teks)}
+.sticky{position:sticky;top:0;z-index:10;background:rgba(245,243,255,.95);backdrop-filter:blur(6px);padding:10px 0;margin-bottom:10px}
+.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.timer{font-family:'Baloo 2';font-weight:800;font-size:22px;background:var(--ungu);color:#fff;border-radius:12px;padding:4px 14px;min-width:96px;text-align:center}
+.timer.low{background:var(--merah)}
+.prog{flex:1;min-width:140px}
+.prog small{color:var(--abu);font-weight:600}
+.track{height:10px;background:var(--ungu-muda);border-radius:99px;overflow:hidden}
+.fill{height:100%;background:linear-gradient(90deg,var(--ungu2),var(--oranye));width:0;transition:width .3s}
+button{font-family:'Baloo 2';font-weight:700;font-size:16px;border:0;border-radius:12px;padding:8px 16px;cursor:pointer}
+.btn-main{background:var(--oranye);color:#fff}
+.btn-main:hover{filter:brightness(1.05)}
+.btn-sec{background:var(--ungu-muda);color:var(--ungu)}
+.soal{background:var(--kartu);border-radius:16px;padding:16px 18px;margin-bottom:14px;box-shadow:0 2px 10px rgba(76,29,149,.07);border:2px solid transparent}
+.soal.benar{border-color:var(--hijau)}
+.soal.salah{border-color:var(--merah)}
+.soal.kosong{border-color:#f59e0b}
+.head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:6px}
+.no{font-family:'Baloo 2';font-weight:800;color:var(--ungu);font-size:18px}
+.tag{font-size:12px;background:var(--ungu-muda);color:var(--ungu);border-radius:99px;padding:2px 10px;font-weight:700}
+.q{font-size:17px;margin-bottom:10px}
+.opts{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media (max-width:520px){.opts{grid-template-columns:1fr}}
+.opt{display:flex;gap:10px;align-items:center;border:2px solid #e5e7eb;border-radius:12px;padding:8px 12px;cursor:pointer;transition:.15s;font-size:16px;background:#fff}
+.opt:hover{border-color:var(--ungu2)}
+.opt input{display:none}
+.opt .huruf{font-family:'Baloo 2';font-weight:800;width:28px;height:28px;border-radius:50%;background:var(--ungu-muda);color:var(--ungu);display:grid;place-items:center;flex:none}
+.opt.dipilih{border-color:var(--ungu2);background:#faf5ff}
+.opt.dipilih .huruf{background:var(--ungu2);color:#fff}
+.opt.kunci{border-color:var(--hijau);background:var(--hijau-muda)}
+.opt.kunci .huruf{background:var(--hijau);color:#fff}
+.opt.keliru{border-color:var(--merah);background:var(--merah-muda)}
+.opt.keliru .huruf{background:var(--merah);color:#fff}
+.locked .opt{cursor:default}
+.status{font-weight:700;margin-top:10px;font-size:15px}
+details{margin-top:8px;background:#faf5ff;border-radius:12px;padding:8px 12px;border:1px dashed #c4b5fd}
+summary{cursor:pointer;font-weight:700;color:var(--ungu)}
+details .isi{margin-top:6px;font-size:15px}
+table.data{border-collapse:collapse;margin:6px 0 10px;font-size:15px}
+table.data th,table.data td{border:1.5px solid #c4b5fd;padding:4px 14px;text-align:center}
+table.data th{background:var(--ungu-muda)}
+.hidden{display:none}
+.hasil h2{font-family:'Baloo 2';margin:0 0 6px;color:var(--ungu)}
+.skor{font-family:'Baloo 2';font-weight:800;font-size:44px;color:var(--oranye);line-height:1}
+.stat{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.stat div{flex:1;min-width:90px;border-radius:12px;padding:8px;text-align:center;font-weight:700}
+.s-b{background:var(--hijau-muda);color:var(--hijau)}
+.s-s{background:var(--merah-muda);color:var(--merah)}
+.s-k{background:#fef3c7;color:#b45309}
+.topik-tbl{width:100%;border-collapse:collapse;font-size:14px}
+.topik-tbl td,.topik-tbl th{padding:6px;border-bottom:1px solid #eee;text-align:left}
+.topik-tbl td:last-child,.topik-tbl th:last-child{text-align:right}
+.emoji{font-size:22px;letter-spacing:4px}
+</style>
+</head>
+<body>
+<header>
+  <span class="badge">LEVEL-1</span>
+  <h1>Latihan Soal Matematika KMSI · Paket 3</h1>
+  <p>Tingkat lanjut (di atas Paket 2) · 40 soal pilihan ganda · Waktu 60 menit</p>
+</header>
+
+<div class="wrap">
+  <div class="panel info">
+    <div class="rules">
+      Penilaian: <b>Benar = 4</b>, <b>Salah = −1</b>, <b>Kosong = −1</b>. Skor maksimal 160.<br>
+      Setelah memilih jawaban, langsung terlihat <b>benar/salah</b> beserta kunci dan pembahasannya. Jawaban tidak bisa diganti, jadi baca soal dengan teliti!
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn-sec" onclick="acakSoal()">🔀 Acak urutan</button>
+      <button class="btn-sec" onclick="ulangi()">↺ Ulangi</button>
+    </div>
+  </div>
+
+  <div class="sticky">
+    <div class="bar">
+      <div class="timer" id="timer">60:00</div>
+      <div class="prog">
+        <small id="progTeks">Terjawab 0 / 40</small>
+        <div class="track"><div class="fill" id="fill"></div></div>
+      </div>
+      <button class="btn-main" id="btnCek" onclick="periksa()">🏁 Selesai & Lihat Skor</button>
+    </div>
+  </div>
+
+  <div class="panel hasil hidden" id="hasil"></div>
+  <div id="daftar"></div>
+</div>
+
+<script>
+// ===== GAMBAR (SVG) =====
+function gambarJam(h,m){
+  const cx=100,cy=100;let angka="",garis="";
+  for(let i=1;i<=12;i++){const a=(i*30-90)*Math.PI/180;
+    angka+=`<text x="${cx+68*Math.cos(a)}" y="${cy+68*Math.sin(a)+6}" text-anchor="middle" font-size="17" font-weight="700" font-family="Nunito" fill="#1e1b4b">${i}</text>`;}
+  for(let i=0;i<60;i++){const a=(i*6-90)*Math.PI/180,r1=i%5?84:80;
+    garis+=`<line x1="${cx+r1*Math.cos(a)}" y1="${cy+r1*Math.sin(a)}" x2="${cx+88*Math.cos(a)}" y2="${cy+88*Math.sin(a)}" stroke="#555" stroke-width="${i%5?1:2.5}"/>`;}
+  const ah=((h%12+m/60)*30-90)*Math.PI/180, am=(m*6-90)*Math.PI/180;
+  return `<div style="margin:8px 0"><svg viewBox="0 0 200 200" width="190" height="190">
+    <circle cx="100" cy="100" r="94" fill="#fff" stroke="#7c3aed" stroke-width="6"/>${garis}${angka}
+    <line x1="100" y1="100" x2="${cx+42*Math.cos(ah)}" y2="${cy+42*Math.sin(ah)}" stroke="#1e1b4b" stroke-width="7" stroke-linecap="round"/>
+    <line x1="100" y1="100" x2="${cx+66*Math.cos(am)}" y2="${cy+66*Math.sin(am)}" stroke="#f97316" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="100" cy="100" r="6" fill="#1e1b4b"/></svg></div>`;
+}
+const TIMBANGAN = `<div style="font-size:26px;margin:8px 0;line-height:1.9">
+🍎 + 🍎 + 🍎 = 9<br>🍎 + 🍊 = 8<br>🍊 + 🍊 + 🍎 = <b>?</b></div>`;
+const SEGITIGA3 = `<div style="margin:8px 0"><svg viewBox="0 0 220 150" width="220" height="150">
+  <polygon points="15,135 110,15 205,135" fill="#fde68a" stroke="#333" stroke-width="3"/>
+  <line x1="110" y1="15" x2="80" y2="135" stroke="#333" stroke-width="3"/>
+  <line x1="110" y1="15" x2="145" y2="135" stroke="#333" stroke-width="3"/></svg></div>`;
+function grid3(){let g=`<rect x="10" y="10" width="120" height="120" fill="#bfdbfe" stroke="#1e3a8a" stroke-width="3"/>`;
+  [50,90].forEach(v=>{g+=`<line x1="${v}" y1="10" x2="${v}" y2="130" stroke="#1e3a8a" stroke-width="3"/><line x1="10" y1="${v}" x2="130" y2="${v}" stroke="#1e3a8a" stroke-width="3"/>`;});
+  return `<div style="margin:8px 0"><svg viewBox="0 0 140 140" width="140" height="140">${g}</svg></div>`;}
+const BENTUK_L = `<div style="margin:8px 0"><svg viewBox="0 0 220 175" width="220" height="175" font-family="Nunito" font-size="13" font-weight="700">
+  <polygon points="40,20 140,20 140,60 200,60 200,140 40,140" fill="#bbf7d0" stroke="#166534" stroke-width="3"/>
+  <text x="90" y="14" text-anchor="middle">5 cm</text>
+  <text x="34" y="84" text-anchor="end">6 cm</text>
+  <text x="120" y="160" text-anchor="middle">8 cm</text>
+  <text x="146" y="45">2 cm</text></svg></div>`;
+const KUBUS_BESAR = `<div style="margin:8px 0"><svg viewBox="0 0 150 145" width="150" height="145" stroke="#333" stroke-width="2">
+  <polygon points="20,50 50,20 130,20 100,50" fill="#c4b5fd"/>
+  <polygon points="100,50 130,20 130,100 100,130" fill="#7c3aed"/>
+  <rect x="20" y="50" width="80" height="80" fill="#a78bfa"/>
+  <line x1="60" y1="50" x2="60" y2="130"/><line x1="20" y1="90" x2="100" y2="90"/>
+  <line x1="60" y1="50" x2="90" y2="20"/><line x1="35" y1="35" x2="115" y2="35"/>
+  <line x1="100" y1="90" x2="130" y2="60"/><line x1="115" y1="35" x2="115" y2="115"/></svg></div>`;
+const LIMAS = `<div style="margin:8px 0"><svg viewBox="0 0 150 140" width="140" height="130" stroke="#333" stroke-width="2" fill="none">
+  <polygon points="20,120 100,120 75,20" fill="#fdba74"/>
+  <polygon points="100,120 130,95 75,20" fill="#fb923c"/>
+  <line x1="20" y1="120" x2="50" y2="95" stroke-dasharray="5,4"/>
+  <line x1="50" y1="95" x2="130" y2="95" stroke-dasharray="5,4"/>
+  <line x1="50" y1="95" x2="75" y2="20" stroke-dasharray="5,4"/></svg></div>`;
+function gambarBatang(){
+  const lbl=["Jalan kaki","Sepeda","Motor","Mobil","Angkot"],v=[9,12,15,5,10];
+  let g="";
+  for(let t=0;t<=15;t+=5){const y=170-t*9;g+=`<line x1="40" y1="${y}" x2="310" y2="${y}" stroke="#ddd"/><text x="32" y="${y+4}" font-size="11" text-anchor="end" font-family="Nunito">${t}</text>`;}
+  v.forEach((n,i)=>{const x=55+i*52,h=n*9;
+    g+=`<rect x="${x}" y="${170-h}" width="34" height="${h}" fill="#0891b2" rx="3"/>
+    <text x="${x+17}" y="${165-h}" font-size="12" font-weight="700" text-anchor="middle" font-family="Nunito">${n}</text>
+    <text x="${x+17}" y="186" font-size="10.5" text-anchor="middle" font-family="Nunito">${lbl[i]}</text>`;});
+  return `<div style="margin:8px 0"><svg viewBox="0 0 320 200" width="320" height="200" style="max-width:100%">
+    <text x="175" y="16" font-size="12" font-weight="700" text-anchor="middle" font-family="Nunito">Cara siswa kelas 3 berangkat ke sekolah</text>
+    ${g}<line x1="40" y1="170" x2="310" y2="170" stroke="#333"/><line x1="40" y1="25" x2="40" y2="170" stroke="#333"/></svg></div>`;
+}
+const BATANG = gambarBatang();
+const TABEL_NILAI = `<table class="data"><tr><th>Nama</th><th>Nilai</th></tr>
+<tr><td>Ani</td><td>8</td></tr><tr><td>Budi</td><td>6</td></tr><tr><td>Cici</td><td>9</td></tr><tr><td>Dodi</td><td>7</td></tr><tr><td>Eka</td><td>10</td></tr></table>`;
+const PIKTO_TELUR = `<table class="data"><tr><th>Hari</th><th>Telur yang terkumpul (🥚 = 4 butir)</th></tr>
+<tr><td>Senin</td><td class="emoji" style="text-align:left">🥚🥚🥚</td></tr>
+<tr><td>Selasa</td><td class="emoji" style="text-align:left">🥚🥚🥚🥚🥚</td></tr>
+<tr><td>Rabu</td><td class="emoji" style="text-align:left">🥚🥚🥚🥚</td></tr></table>`;
+function gambarKorek(){
+  let g="";const s=26;
+  [1,2,3].forEach((n,i)=>{const ox=15+[0,55,140][i],oy=20;
+    const L=(x1,y1,x2,y2)=>g+=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#b45309" stroke-width="4" stroke-linecap="round"/><circle cx="${x2}" cy="${y2}" r="3" fill="#dc2626"/>`;
+    for(let k=0;k<n;k++){L(ox+k*s,oy,ox+(k+1)*s,oy);L(ox+k*s,oy+s,ox+(k+1)*s,oy+s);}
+    for(let k=0;k<=n;k++)L(ox+k*s,oy+s,ox+k*s,oy);
+    g+=`<text x="${ox+n*s/2}" y="72" font-size="12" text-anchor="middle" font-family="Nunito">Gambar ${n}</text>`;});
+  return `<div style="margin:8px 0"><svg viewBox="0 0 250 80" width="270" height="86">${g}</svg></div>`;
+}
+
+const SOAL = [
+// ===== OPERASI BILANGAN =====
+{t:"Operasi bilangan", q:"1.000 − 457 + 238 − 99 = …", o:["682","672","692","782"], a:0,
+ e:"Kerjakan dari kiri ke kanan.<br>1.000 − 457 = 543<br>543 + 238 = 781<br>781 − 99 = <b>682</b><br>Tips: mengurangi 99 sama dengan mengurangi 100 lalu menambah 1."},
+{t:"Operasi bilangan", q:"48 : 6 × 4 − 3 × 5 + 10 = …", o:["27","7","17","37"], a:0,
+ e:"Kali dan bagi dikerjakan dulu, urut dari kiri.<br>48 : 6 = 8, lalu 8 × 4 = 32<br>3 × 5 = 15<br>Sekarang: 32 − 15 + 10 = <b>27</b>."},
+{t:"Operasi bilangan", q:"−(−(−(−12 + 3 × (−(−2 − 5))) − 6)) = …", o:["15","−15","3","−3"], a:1,
+ e:"Kerjakan dari kurung paling dalam:<br>−2 − 5 = −7<br>−(−7) = 7<br>3 × 7 = 21 (kali dulu)<br>−12 + 21 = 9<br>−(9) = −9<br>−9 − 6 = −15<br>−(−15) = 15<br>−(15) = <b>−15</b>"},
+{t:"Operasi bilangan", q:"1 − 2 + 3 − 4 + 5 − 6 + … + 19 − 20 = …", o:["−10","10","−20","0"], a:0,
+ e:"Kelompokkan berpasangan: (1 − 2) + (3 − 4) + … + (19 − 20).<br>Setiap pasangan hasilnya −1, dan ada 10 pasangan.<br>10 × (−1) = <b>−10</b>."},
+{t:"Operasi bilangan", q:"1 + 3 + 5 + 7 + … + 17 + 19 = …", o:["90","100","110","121"], a:1,
+ e:"Ada 10 bilangan ganjil. Pasangkan ujung dengan ujung:<br>(1+19) + (3+17) + (5+15) + (7+13) + (9+11) = 5 × 20 = <b>100</b>.<br>Fakta menarik: jumlah n bilangan ganjil pertama = n × n = 10 × 10."},
+{t:"Operasi bilangan", q:"Di kandang ada ayam dan kambing, seluruhnya 10 ekor. Jumlah kaki semuanya 28. Banyak ayam di kandang adalah …", o:["4 ekor","5 ekor","6 ekor","7 ekor"], a:2,
+ e:"Andaikan semua 10 ekor adalah ayam → 10 × 2 = 20 kaki. Kurang 8 kaki.<br>Setiap ayam diganti kambing, kaki bertambah 2. Jadi ada 8 : 2 = 4 kambing.<br>Ayam = 10 − 4 = <b>6 ekor</b>.<br>Cek: 6 × 2 + 4 × 4 = 12 + 16 = 28 ✔"},
+{t:"Operasi bilangan", q:"Bus berangkat dari terminal setiap 15 menit dan angkot setiap 20 menit. Pukul 06.00 keduanya berangkat bersamaan. Mereka akan berangkat bersamaan lagi pukul …", o:["06.35","06.45","07.00","07.30"], a:2,
+ e:"Cari KPK 15 dan 20.<br>Kelipatan 15: 15, 30, 45, <b>60</b><br>Kelipatan 20: 20, 40, <b>60</b><br>KPK = 60 menit = 1 jam.<br>06.00 + 1 jam = <b>07.00</b>."},
+{t:"Operasi bilangan", q:"Perhatikan teka-teki berikut! Gambar yang sama nilainya sama."+TIMBANGAN+"Nilai tanda tanya adalah …", o:["11","13","15","16"], a:1,
+ e:"3 apel = 9, jadi 1 apel = 9 : 3 = 3.<br>Apel + jeruk = 8 → jeruk = 8 − 3 = 5.<br>Jeruk + jeruk + apel = 5 + 5 + 3 = <b>13</b>."},
+
+// ===== NILAI TEMPAT & LAMBANG BILANGAN =====
+{t:"Nilai tempat & lambang bilangan", q:"Lambang bilangan dua juta tiga puluh ribu empat ratus adalah …", o:["2.030.400","2.300.400","2.034.000","2.003.400"], a:0,
+ e:"Dua juta = 2.000.000<br>Tiga puluh ribu = 30.000<br>Empat ratus = 400<br>Jumlah = <b>2.030.400</b>"},
+{t:"Nilai tempat & lambang bilangan", q:"Selisih bilangan 3 angka terbesar dan bilangan 3 angka terkecil yang angka-angkanya berbeda semua adalah …", o:["885","897","875","889"], a:0,
+ e:"Terbesar dengan angka berbeda: <b>987</b>.<br>Terkecil dengan angka berbeda: depan 1 (tidak boleh 0), lalu 0, lalu 2 → <b>102</b>. (100 dan 101 punya angka kembar.)<br>987 − 102 = <b>885</b>."},
+{t:"Nilai tempat & lambang bilangan", q:"Sebuah buku cerita bernomor halaman 1 sampai 50. Banyak angka yang digunakan untuk menulis semua nomor halaman adalah …", o:["91","90","82","100"], a:0,
+ e:"Halaman 1–9: 9 halaman × 1 angka = 9 angka.<br>Halaman 10–50: 41 halaman × 2 angka = 82 angka.<br>Total = 9 + 82 = <b>91</b> angka."},
+{t:"Nilai tempat & lambang bilangan", q:"Sebuah bilangan terdiri dari 6 ratus ribuan, 0 puluh ribuan, 4 ribuan, 15 puluhan, dan 3 satuan. Bilangan tersebut adalah …", o:["604.153","6.041.503","604.053","641.503"], a:0,
+ e:"Jebakannya ada di 15 puluhan = 150 (bukan ditulis langsung 15).<br>600.000 + 0 + 4.000 + 150 + 3 = <b>604.153</b>."},
+
+// ===== WAKTU =====
+{t:"Waktu", q:"Perhatikan gambar jam berikut! Jam tersebut menunjukkan pukul …"+gambarJam(7,55), o:["07.55","08.55","11.35","07.11"], a:0,
+ e:"Jarum panjang (oranye) di angka 11 → 11 × 5 = 55 menit.<br>Jarum pendek (hitam) hampir sampai angka 8 tapi belum, jadi masih jam 7.<br>Pukul <b>07.55</b> (5 menit lagi pukul 8)."},
+{t:"Waktu", q:"Jam berikut menunjukkan waktu film kartun dimulai."+gambarJam(2,40)+"Film berlangsung selama 1 jam 35 menit. Film selesai pukul …", o:["03.75","04.15","04.05","03.15"], a:1,
+ e:"Jam menunjukkan 02.40 (jarum panjang di angka 8 = 40 menit).<br>02.40 + 1 jam = 03.40<br>03.40 + 20 menit = 04.00, sisa 15 menit → <b>04.15</b>."},
+{t:"Waktu", q:"2 jam 25 menit + 1 jam 50 menit = …", o:["3 jam 75 menit","4 jam 15 menit","4 jam 5 menit","3 jam 15 menit"], a:1,
+ e:"Jam: 2 + 1 = 3 jam. Menit: 25 + 50 = 75 menit.<br>75 menit = 1 jam 15 menit.<br>3 jam + 1 jam 15 menit = <b>4 jam 15 menit</b>.<br>Jebakan: \"3 jam 75 menit\" belum disederhanakan."},
+{t:"Waktu", q:"Tanggal 1 Januari 2026 jatuh pada hari Kamis. Tanggal 1 Februari 2026 jatuh pada hari …", o:["Sabtu","Minggu","Senin","Kamis"], a:1,
+ e:"Januari punya 31 hari, jadi 1 Februari adalah 31 hari setelah 1 Januari.<br>31 : 7 = 4 sisa 3. Dari Kamis maju 3 hari: Jumat, Sabtu, <b>Minggu</b>."},
+{t:"Waktu", q:"Sekarang pukul 08.00. Pukul berapakah 1.000 menit lagi?", o:["00.40","18.00","16.40","23.40"], a:0,
+ e:"1.000 menit : 60 = 16 jam sisa 40 menit (16 × 60 = 960).<br>08.00 + 16 jam = 24.00 = 00.00<br>00.00 + 40 menit = <b>00.40</b>."},
+
+// ===== BANGUN DATAR =====
+{t:"Bangun datar", q:"Perhatikan gambar berikut! Banyak segitiga pada gambar adalah …"+SEGITIGA3, o:["3","4","5","6"], a:3,
+ e:"Alasnya terbagi menjadi 3 bagian.<br>Segitiga dari 1 bagian: 3<br>Segitiga dari 2 bagian berdampingan: 2<br>Segitiga dari 3 bagian (yang besar): 1<br>Total = 3 + 2 + 1 = <b>6</b>."},
+{t:"Bangun datar", q:"Perhatikan gambar berikut! Banyak persegi pada gambar adalah …"+grid3(), o:["9","10","13","14"], a:3,
+ e:"Persegi kecil (1×1): 9<br>Persegi sedang (2×2): 4<br>Persegi besar (3×3): 1<br>Total = 9 + 4 + 1 = <b>14</b>."},
+{t:"Bangun datar", q:"Sebuah persegi luasnya 36 cm². Keliling persegi tersebut adalah …", o:["24 cm","36 cm","12 cm","144 cm"], a:0,
+ e:"Luas persegi = sisi × sisi = 36, jadi sisinya 6 cm (karena 6 × 6 = 36).<br>Keliling = 4 × 6 = <b>24 cm</b>."},
+{t:"Bangun datar", q:"Perhatikan bangun berikut! Keliling bangun tersebut adalah …"+BENTUK_L, o:["24 cm","26 cm","28 cm","48 cm"], a:2,
+ e:"Cari sisi yang belum diketahui:<br>Sisi mendatar pendek = 8 − 5 = 3 cm<br>Sisi tegak kanan = 6 − 2 = 4 cm<br>Keliling = 5 + 2 + 3 + 4 + 8 + 6 = <b>28 cm</b>.<br>Tips: kelilingnya sama dengan persegi panjang 8 × 6, yaitu 2 × (8 + 6) = 28."},
+{t:"Bangun datar", q:"Dua persegi yang sama besar diletakkan berdampingan sehingga membentuk persegi panjang dengan keliling 36 cm. Panjang sisi persegi adalah …", o:["6 cm","9 cm","12 cm","18 cm"], a:0,
+ e:"Persegi panjang yang terbentuk punya panjang = 2 sisi dan lebar = 1 sisi.<br>Kelilingnya = 2 + 1 + 2 + 1 = 6 sisi persegi.<br>6 sisi = 36 cm → 1 sisi = 36 : 6 = <b>6 cm</b>."},
+
+// ===== BANGUN RUANG =====
+{t:"Bangun ruang", q:"Kubus besar berikut tersusun penuh (tanpa rongga) dari kubus-kubus kecil yang sama besar. Banyak kubus kecil penyusunnya adalah …"+KUBUS_BESAR, o:["6","7","8","12"], a:2,
+ e:"Setiap rusuk kubus besar terbagi 2, jadi susunannya 2 × 2 × 2.<br>Lapisan bawah 4 kubus + lapisan atas 4 kubus = <b>8</b>.<br>Jebakan: yang terlihat hanya 7, satu kubus tersembunyi di belakang bawah."},
+{t:"Bangun ruang", q:"Pada sebuah dadu, jumlah mata dadu pada dua sisi yang berhadapan selalu 7. Jika mata dadu yang di atas adalah 2, maka mata dadu yang di bawah adalah …", o:["2","4","5","6"], a:2,
+ e:"Sisi atas dan bawah saling berhadapan, jadi jumlahnya 7.<br>Mata bawah = 7 − 2 = <b>5</b>."},
+{t:"Bangun ruang", q:"Banyak kubus kecil berukuran 1 cm yang diperlukan untuk menyusun sebuah kubus besar berukuran panjang rusuk 3 cm adalah …", o:["9","18","27","36"], a:2,
+ e:"Satu lapisan berisi 3 × 3 = 9 kubus kecil.<br>Ada 3 lapisan, jadi 9 × 3 = <b>27</b> kubus kecil."},
+{t:"Bangun ruang", q:"Perhatikan gambar limas segiempat berikut! Banyak rusuknya adalah …"+LIMAS, o:["5","6","8","12"], a:2,
+ e:"Rusuk alas (segiempat): 4<br>Rusuk tegak dari tiap sudut alas ke puncak: 4<br>Total = 4 + 4 = <b>8</b> rusuk. (Garis putus-putus adalah rusuk yang ada di belakang.)"},
+
+// ===== TABEL & DIAGRAM =====
+{t:"Tabel dan diagram", q:"Perhatikan diagram batang berikut!"+BATANG+"Banyak siswa yang berangkat tanpa kendaraan bermotor adalah …", o:["21","15","12","29"], a:0,
+ e:"Tanpa kendaraan bermotor = jalan kaki dan sepeda.<br>9 + 12 = <b>21</b> siswa."},
+{t:"Tabel dan diagram", q:"Perhatikan diagram batang berikut!"+BATANG+"Banyak siswa yang naik motor adalah … kali banyak siswa yang naik mobil.", o:["2","3","4","5"], a:1,
+ e:"Motor: 15 siswa, mobil: 5 siswa.<br>15 : 5 = <b>3</b> kali."},
+{t:"Tabel dan diagram", q:"Perhatikan diagram batang berikut!"+BATANG+"Satu angkot hanya boleh memuat paling banyak 4 siswa. Banyak angkot paling sedikit yang diperlukan agar semua siswa pengguna angkot terangkut adalah …", o:["2","3","4","10"], a:1,
+ e:"Ada 10 siswa naik angkot. 10 : 4 = 2 sisa 2.<br>2 angkot hanya memuat 8 siswa, masih ada 2 siswa yang tertinggal, jadi perlu 1 angkot lagi.<br>Total = <b>3</b> angkot."},
+{t:"Tabel dan diagram", q:"Perhatikan tabel nilai berikut!"+TABEL_NILAI+"Rata-rata nilai kelima anak tersebut adalah …", o:["7","8","9","40"], a:1,
+ e:"Rata-rata = jumlah semua nilai : banyak anak.<br>8 + 6 + 9 + 7 + 10 = 40<br>40 : 5 = <b>8</b>."},
+{t:"Tabel dan diagram", q:"Perhatikan diagram gambar telur yang terkumpul di peternakan berikut!"+PIKTO_TELUR+"Banyak telur yang terkumpul selama 3 hari adalah …", o:["12 butir","36 butir","48 butir","52 butir"], a:2,
+ e:"Jumlah gambar: 3 + 5 + 4 = 12 gambar.<br>Setiap gambar = 4 butir, jadi 12 × 4 = <b>48 butir</b>."},
+
+// ===== POLA BILANGAN =====
+{t:"Pola bilangan sederhana", q:"3, 4, 7, 11, 18, 29, … Bilangan berikutnya adalah …", o:["40","45","47","58"], a:2,
+ e:"Setiap bilangan = jumlah dua bilangan sebelumnya.<br>3+4=7, 4+7=11, 7+11=18, 11+18=29, jadi 18 + 29 = <b>47</b>."},
+{t:"Pola bilangan sederhana", q:"2, 6, 18, 54, … Bilangan berikutnya adalah …", o:["108","72","162","216"], a:2,
+ e:"Setiap bilangan dikali 3.<br>54 × 3 = <b>162</b>."},
+{t:"Pola bilangan sederhana", q:"5, 8, 11, 14, … Bilangan ke-20 adalah …", o:["59","62","65","60"], a:1,
+ e:"Bilangan pertama 5 dan setiap kali bertambah 3.<br>Dari bilangan ke-1 ke bilangan ke-20 ada 19 kali penambahan.<br>5 + 19 × 3 = 5 + 57 = <b>62</b>."},
+{t:"Pola bilangan sederhana", q:"Perhatikan pola batang korek api berikut!"+gambarKorek()+"Banyak batang korek api untuk membuat gambar ke-6 adalah …", o:["18","19","22","24"], a:1,
+ e:"Gambar 1: 4 batang, gambar 2: 7 batang, gambar 3: 10 batang. Setiap gambar bertambah 3 batang.<br>Gambar 4: 13, gambar 5: 16, gambar 6: <b>19</b> batang."},
+{t:"Pola bilangan sederhana", q:"1, 4, 9, 16, 25, … Bilangan ke-9 adalah …", o:["64","72","81","100"], a:2,
+ e:"Polanya bilangan kuadrat: 1×1, 2×2, 3×3, 4×4, 5×5, …<br>Bilangan ke-9 = 9 × 9 = <b>81</b>."},
+
+// ===== ARITMETIKA SOSIAL =====
+{t:"Aritmetika sosial", q:"Pak Budi membeli 2 lusin pensil seharga Rp36.000. Semua pensil dijual dengan harga Rp2.000 per batang. Keuntungan Pak Budi adalah …", o:["Rp12.000","Rp6.000","Rp10.000","Rp48.000"], a:0,
+ e:"1 lusin = 12, jadi 2 lusin = 24 pensil.<br>Hasil penjualan = 24 × Rp2.000 = Rp48.000<br>Untung = Rp48.000 − Rp36.000 = <b>Rp12.000</b>."},
+{t:"Aritmetika sosial", q:"Harga 4 buku sama dengan harga 6 pensil. Jika harga 1 pensil Rp2.000, maka harga 2 buku adalah …", o:["Rp3.000","Rp4.000","Rp6.000","Rp12.000"], a:2,
+ e:"Harga 6 pensil = 6 × Rp2.000 = Rp12.000 = harga 4 buku.<br>Harga 1 buku = Rp12.000 : 4 = Rp3.000.<br>Harga 2 buku = <b>Rp6.000</b>."},
+{t:"Aritmetika sosial", q:"Jumlah tabungan Ani dan Budi Rp75.000. Tabungan Ani Rp15.000 lebih banyak dari tabungan Budi. Tabungan Budi adalah …", o:["Rp30.000","Rp45.000","Rp37.500","Rp60.000"], a:0,
+ e:"Tabungan yang lebih kecil = (jumlah − selisih) : 2<br>(Rp75.000 − Rp15.000) : 2 = Rp60.000 : 2 = <b>Rp30.000</b>.<br>Cek: Ani Rp45.000. 45.000 + 30.000 = 75.000 ✔"},
+{t:"Aritmetika sosial", q:"Toko es krim mengadakan promo \"beli 3 gratis 1\". Harga satu es krim Rp5.000. Rini pulang membawa 8 es krim. Uang yang dibayar Rini adalah …", o:["Rp30.000","Rp40.000","Rp35.000","Rp25.000"], a:0,
+ e:"Setiap membayar 3 es krim, Rini membawa pulang 4 es krim.<br>8 es krim = 2 kelompok × 4 → yang dibayar 2 × 3 = 6 es krim.<br>6 × Rp5.000 = <b>Rp30.000</b>."},
+];
+
+let urutan = SOAL.map((_,i)=>i);
+let jawaban = {};
+let sudahCek = false;
+let sisa = 60*60, intv = null;
+const huruf = ["a","b","c","d"];
+
+function render(){
+  const d = document.getElementById("daftar");
+  d.innerHTML = urutan.map((idx,n)=>{
+    const s = SOAL[idx];
+    return `<div class="soal" id="s${idx}">
+      <div class="head"><span class="no">Soal ${n+1}</span><span class="tag">${s.t}</span></div>
+      <div class="q">${s.q}</div>
+      <div class="opts">${s.o.map((op,k)=>`
+        <label class="opt" id="o${idx}_${k}">
+          <input type="radio" name="q${idx}" value="${k}" onchange="pilih(${idx},${k})">
+          <span class="huruf">${huruf[k]}</span><span>${op}</span>
+        </label>`).join("")}
+      </div>
+      <div class="status hidden" id="st${idx}"></div>
+      <details class="hidden" id="ex${idx}"><summary>💡 Lihat pembahasan</summary><div class="isi">${s.e}</div></details>
+    </div>`;
+  }).join("");
+  Object.keys(jawaban).forEach(i=>tandai(+i));
+  if(sudahCek) SOAL.forEach((_,i)=>{ if(!(i in jawaban)) tandai(i); });
+  updateProg();
+}
+
+// Menandai satu soal: benar / salah / kosong, tampilkan kunci & pembahasan
+function tandai(i){
+  const s=SOAL[i], box=document.getElementById("s"+i), st=document.getElementById("st"+i);
+  box.classList.add("locked");
+  document.querySelectorAll(`input[name=q${i}]`).forEach(r=>r.disabled=true);
+  document.getElementById(`o${i}_${s.a}`).classList.add("kunci");
+  st.classList.remove("hidden");
+  document.getElementById("ex"+i).classList.remove("hidden");
+  const kunci=`<b>${huruf[s.a]}. ${s.o[s.a]}</b>`;
+  if(!(i in jawaban)){
+    box.classList.add("kosong");
+    st.innerHTML=`<span style="color:#b45309">⚪ Tidak dijawab (−1). Jawaban yang benar: ${kunci}</span>`;
+  } else if(jawaban[i]===s.a){
+    box.classList.add("benar");
+    st.innerHTML=`<span style="color:var(--hijau)">✅ Benar! (+4) Jawabanmu: ${kunci}</span>`;
+  } else {
+    box.classList.add("salah");
+    document.getElementById(`o${i}_${jawaban[i]}`).classList.add("keliru");
+    st.innerHTML=`<span style="color:var(--merah)">❌ Salah (−1). Jawabanmu: ${huruf[jawaban[i]]}. ${s.o[jawaban[i]]}</span><br><span style="color:var(--hijau)">✔ Jawaban yang benar: ${kunci}</span>`;
+  }
+}
+
+function pilih(i,k){
+  if(sudahCek || i in jawaban) return;
+  jawaban[i]=k;
+  tandai(i);
+  updateProg();
+  if(!intv) mulaiTimer();
+}
+
+function hitungSkor(){
+  let B=0,S=0,K=0; const perTopik={};
+  SOAL.forEach((s,i)=>{
+    perTopik[s.t] ??= {b:0,n:0}; perTopik[s.t].n++;
+    if(!(i in jawaban)) K++;
+    else if(jawaban[i]===s.a){B++;perTopik[s.t].b++;}
+    else S++;
+  });
+  return {B,S,K,perTopik};
+}
+
+function updateProg(){
+  const n=Object.keys(jawaban).length;
+  const {B,S}=hitungSkor();
+  document.getElementById("progTeks").innerHTML=`Terjawab ${n} / ${SOAL.length} &nbsp;·&nbsp; <span style="color:var(--hijau)">✅ ${B}</span> &nbsp;<span style="color:var(--merah)">❌ ${S}</span> &nbsp;· Skor sementara: <b>${B*4-S}</b>`;
+  document.getElementById("fill").style.width=(n/SOAL.length*100)+"%";
+}
+
+function mulaiTimer(){
+  intv=setInterval(()=>{
+    sisa--; tampilWaktu();
+    if(sisa<=0){clearInterval(intv); alert("Waktu habis! Soal yang belum dijawab dihitung kosong."); periksa(true);}
+  },1000);
+}
+function tampilWaktu(){
+  const m=String(Math.floor(sisa/60)).padStart(2,"0"), s=String(sisa%60).padStart(2,"0");
+  const t=document.getElementById("timer"); t.textContent=`${m}:${s}`;
+  t.classList.toggle("low",sisa<=300);
+}
+
+function periksa(paksa){
+  if(sudahCek) return;
+  const kosong=SOAL.length-Object.keys(jawaban).length;
+  if(!paksa && kosong>0 && !confirm(`Masih ada ${kosong} soal kosong (dihitung −1). Tetap selesai?`)) return;
+  sudahCek=true; clearInterval(intv);
+  SOAL.forEach((_,i)=>{ if(!(i in jawaban)) tandai(i); });
+  const {B,S,K,perTopik}=hitungSkor();
+  const skor=B*4-S-K, waktu=60*60-sisa;
+  const h=document.getElementById("hasil");
+  h.classList.remove("hidden");
+  h.innerHTML=`<h2>Hasil Latihan</h2>
+    <div class="skor">${skor} <span style="font-size:20px;color:var(--abu)">/ 160</span></div>
+    <div style="color:var(--abu);font-size:14px">Waktu pengerjaan: ${Math.floor(waktu/60)} menit ${waktu%60} detik</div>
+    <div class="stat"><div class="s-b">✅ Benar<br>${B}</div><div class="s-s">❌ Salah<br>${S}</div><div class="s-k">⚪ Kosong<br>${K}</div></div>
+    <table class="topik-tbl"><tr><th>Topik</th><th>Benar</th></tr>
+    ${Object.entries(perTopik).map(([t,v])=>`<tr><td>${t}</td><td>${v.b} / ${v.n}</td></tr>`).join("")}</table>
+    <p style="font-size:14px;color:var(--abu);margin-bottom:0">Buka <b>💡 Lihat pembahasan</b> di setiap soal untuk mempelajari cara mengerjakannya.</p>`;
+  const b=document.getElementById("btnCek"); b.disabled=true; b.style.opacity=.5;
+  updateProg();
+  h.scrollIntoView({behavior:"smooth"});
+}
+
+function ulangi(){
+  if(!confirm("Mulai ulang latihan? Semua jawaban akan dihapus.")) return;
+  jawaban={}; sudahCek=false; clearInterval(intv); intv=null; sisa=3600; tampilWaktu();
+  document.getElementById("hasil").classList.add("hidden");
+  const b=document.getElementById("btnCek"); b.disabled=false; b.style.opacity=1;
+  render(); window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function acakSoal(){
+  for(let i=urutan.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[urutan[i],urutan[j]]=[urutan[j],urutan[i]];}
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
